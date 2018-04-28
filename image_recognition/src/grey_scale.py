@@ -19,5 +19,6 @@ def calc_eta(img):
 if __name__ == '__main__':
 	# png_to_yuv('../images/cat.jpg', '../images/cat_yuv.jpg')
 	# png_to_yuv('../images/rick.jpg', '../images/rick_yuv.jpg')
-	png_to_yuv('../images/rub.jpg', '../images/rub_yuv.jpg')
+	# png_to_yuv('../images/rub.jpg', '../images/rub_yuv.jpg')
+	png_to_yuv('../images/dav.jpg', '../images/dav_yuv.jpg')
 
