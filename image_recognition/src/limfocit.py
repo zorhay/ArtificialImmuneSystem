@@ -34,7 +34,15 @@ class Limfocit_B():
                  p += 1
         affinity = p / (len(self.white_pixels))# + len(self.black_pixels))
         return affinity
-            
+
+    def alter_affinity(self, antigen):
+        p = 0
+        for i in antigen.white_pixels:
+            if i in self.white_pixels:
+                p += 1
+        affinity = p / (len(self.white_pixels))  # + len(self.black_pixels))
+        return affinity
+
     def is_reacting(self, affinity):
         return affinity >= self.reaction_limit
 
@@ -89,6 +97,8 @@ class Limfocit_B():
         image_array.setflags(write=1)
         image_binarize_array = binarize_array(image_array)
         # TODO resize image
+        # TODO crop image
+        # TODO resize image again
         limfocit = cls(reaction_limit=reaction_limit, size=image.size[0])
         for i in range(image_binarize_array.shape[0]):
             for j in range(image_binarize_array.shape[1]):
