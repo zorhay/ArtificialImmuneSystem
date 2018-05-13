@@ -32,7 +32,7 @@ class Limfocit_B():
         for i in antigen.white_pixels:
             if i in self.white_pixels:
                  p += 1
-        affinity = p / (len(self.white_pixels))# + len(self.black_pixels))
+        affinity = p / ((len(self.white_pixels)) + len(self.black_pixels))
         return affinity
 
     def alter_affinity(self, antigen):
@@ -70,6 +70,32 @@ class Limfocit_B():
     def convert_to_image(self):
         ''' Creates PIL image '''
         return Image.fromarray(numpy.uint8(self.convert_to_array()), 'L')
+
+    def mutation(self, antigen):
+        mutation_power = 0.05
+        input_pixel_count = (len(antigen.white_pixels)**2*mutation_power)/len(self.white_pixels)
+        input_pixel_count = int(input_pixel_count)
+        output_pixel_count = (len(self.white_pixels) **2*mutation_power)/len(antigen.white_pixels)
+        output_pixel_count = int(output_pixel_count)
+
+        if len(self.white_pixels) > output_pixel_count:
+            output_pixels = set(random.sample(self.white_pixels, output_pixel_count))
+        else:
+            output_pixels = set(self.white_pixels)
+        self.black_pixels = list(set(self.black_pixels) | output_pixels)
+
+        if len(antigen.white_pixels) > input_pixel_count:
+            input_pixels = set(random.sample(antigen.white_pixels, input_pixel_count))
+        else:
+            input_pixels = set(antigen.white_pixels)
+        for pixel in input_pixels:
+            if pixel in self.black_pixels:
+                self.black_pixels.remove(pixel)
+        self.white_pixels = list(set(self.white_pixels) | input_pixels)
+
+    def filter(self):
+        # TODO implement this
+        pass
 
     @classmethod
     def generate(cls, limfocit_type, heigth=28, width=28):
