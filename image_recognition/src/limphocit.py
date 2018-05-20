@@ -5,7 +5,7 @@ from PIL import Image
 from grey_scale import binarize_array
 
 
-class Limfocit_B():
+class Limphocit_B():
     """
     ab = [(a1, b1),(a2, b2),(a3, b3),(a4, b4)]
     (an, bn) - coordinates of white pixels
@@ -32,8 +32,13 @@ class Limfocit_B():
         for i in antigen.white_pixels:
             if i in self.white_pixels:
                  p += 1
-        affinity = p / ((len(self.white_pixels)) + len(self.black_pixels))
-        return affinity
+        affinity_1 = p / (len(self.white_pixels))
+        p = 0
+        for i in self.white_pixels:
+            if i in antigen.white_pixels:
+                 p += 1
+        affinity_2 = p / (len(antigen.white_pixels))
+        return min(affinity_1, affinity_2)
 
     def alter_affinity(self, antigen):
         p = 0
@@ -98,16 +103,16 @@ class Limfocit_B():
         pass
 
     @classmethod
-    def generate(cls, limfocit_type, heigth=28, width=28):
+    def generate(cls, limphocit_type, heigth=28, width=28):
         size = heigth * width
-        white_indexes = set(random.sample(range(size), limfocit_type))
+        white_indexes = set(random.sample(range(size), limphocit_type))
         black_indexes = set(range(size)) - white_indexes
-        limfocit = Limfocit_B(reaction_limit=0.4, size=heigth)
+        limphocit = cls(reaction_limit=0.4, size=heigth)
         for i in white_indexes:
-            limfocit.white_pixels.append(cls.limfoset[i])
+            limphocit.white_pixels.append(cls.limfoset[i])
         for i in black_indexes:
-            limfocit.black_pixels.append(cls.limfoset[i])
-        return limfocit
+            limphocit.black_pixels.append(cls.limfoset[i])
+        return limphocit
 
     @classmethod
     def init(cls, limfoset_heigth=28, limfoset_width=28):
@@ -117,7 +122,7 @@ class Limfocit_B():
         cls.id_list.append(0)
 
     @classmethod
-    def get_from_image(cls, image_path, reaction_limit):
+    def get_from_image(cls, image_path, reaction_limit=0.4):
         image = Image.open(image_path).convert('L')
         image_array = numpy.uint8(image)
         image_array.setflags(write=1)
@@ -125,19 +130,38 @@ class Limfocit_B():
         # TODO resize image
         # TODO crop image
         # TODO resize image again
-        limfocit = cls(reaction_limit=reaction_limit, size=image.size[0])
+        limphocit = cls(reaction_limit=reaction_limit, size=image.size[0])
         for i in range(image_binarize_array.shape[0]):
             for j in range(image_binarize_array.shape[1]):
                 if image_binarize_array[i][j] == 255:
-                    limfocit.add_white_pixel((i, j))
+                    limphocit.add_white_pixel((i, j))
                 elif image_binarize_array[i][j] == 0:
-                    limfocit.add_black_pixel((i, j))
+                    limphocit.add_black_pixel((i, j))
                 else:
                     raise ValueError('image not binarized')
-        return limfocit
+        return limphocit
+
+    @classmethod
+    def get_from_pil_image(cls, pil_image, reaction_limit=0.4):
+        image_array = numpy.uint8(pil_image)
+        image_array.setflags(write=1)
+        image_binarize_array = binarize_array(image_array)
+        # TODO resize image
+        # TODO crop image
+        # TODO resize image again
+        limphocit = cls(reaction_limit=reaction_limit, size=pil_image.size[0])
+        for i in range(image_binarize_array.shape[0]):
+            for j in range(image_binarize_array.shape[1]):
+                if image_binarize_array[i][j] == 255:
+                    limphocit.add_white_pixel((i, j))
+                elif image_binarize_array[i][j] == 0:
+                    limphocit.add_black_pixel((i, j))
+                else:
+                    raise ValueError('image not binarized')
+        return limphocit
 
     def __repr__(self):
-        return "Limfocit: \n\
+        return "Limphocit: \n\
         reaction limit: {} \n\
         id: {} \n\
         last activity time: {} \n\
