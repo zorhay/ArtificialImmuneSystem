@@ -76,31 +76,74 @@ class Limphocit_B():
         ''' Creates PIL image '''
         return Image.fromarray(numpy.uint8(self.convert_to_array()), 'L')
 
-    def mutation(self, antigen):
-        mutation_power = 0.05
-        input_pixel_count = (len(antigen.white_pixels)**2*mutation_power)/len(self.white_pixels)
-        input_pixel_count = int(input_pixel_count)
-        output_pixel_count = (len(self.white_pixels) **2*mutation_power)/len(antigen.white_pixels)
-        output_pixel_count = int(output_pixel_count)
+    # def mutation(self, antigen):
+    #     mutation_power = 0.05
+    #     input_pixel_count = (len(antigen.white_pixels)**2*mutation_power)/len(self.white_pixels)
+    #     input_pixel_count = int(input_pixel_count)
+    #     output_pixel_count = (len(self.white_pixels) **2*mutation_power)/len(antigen.white_pixels)
+    #     output_pixel_count = int(output_pixel_count)
+    #
+    #     if len(self.white_pixels) > output_pixel_count:
+    #         output_pixels = set(random.sample(self.white_pixels, output_pixel_count))
+    #     else:
+    #         output_pixels = set(self.white_pixels)
+    #     self.black_pixels = list(set(self.black_pixels) | output_pixels)
+    #
+    #     if len(antigen.white_pixels) > input_pixel_count:
+    #         input_pixels = set(random.sample(antigen.white_pixels, input_pixel_count))
+    #     else:
+    #         input_pixels = set(antigen.white_pixels)
+    #     for pixel in input_pixels:
+    #         if pixel in self.black_pixels:
+    #             self.black_pixels.remove(pixel)
+    #     self.white_pixels = list(set(self.white_pixels) | input_pixels)
 
-        if len(self.white_pixels) > output_pixel_count:
-            output_pixels = set(random.sample(self.white_pixels, output_pixel_count))
-        else:
-            output_pixels = set(self.white_pixels)
-        self.black_pixels = list(set(self.black_pixels) | output_pixels)
-
-        if len(antigen.white_pixels) > input_pixel_count:
-            input_pixels = set(random.sample(antigen.white_pixels, input_pixel_count))
-        else:
-            input_pixels = set(antigen.white_pixels)
-        for pixel in input_pixels:
-            if pixel in self.black_pixels:
-                self.black_pixels.remove(pixel)
+    def mutation(self, antigen, mutation_power=0.1):
+        div_antigen_pixels = set([pixel for pixel in antigen.white_pixels if pixel not in self.white_pixels])
+        pixel_count = int(len(div_antigen_pixels)*mutation_power)
+        input_pixels = set(random.sample(div_antigen_pixels, pixel_count))
         self.white_pixels = list(set(self.white_pixels) | input_pixels)
 
+        div_limphocit_pixels = set([pixel for pixel in self.white_pixels if pixel not in antigen.white_pixels])
+        pixel_count = int(len(div_limphocit_pixels) * mutation_power)
+        output_pixels = set(random.sample(div_limphocit_pixels, pixel_count))
+        self.black_pixels = list(set(self.black_pixels) | output_pixels)
+
     def filter(self):
-        # TODO implement this
-        pass
+        img = self.convert_to_image()
+        members = [(0, 0)] * 9
+        width, height = img.size
+        newimg = Image.new("L", (width, height), "black")
+        for i in range(1, width - 1):
+            for j in range(1, height - 1):
+                members[0] = img.getpixel((i - 1, j - 1))
+                members[1] = img.getpixel((i - 1, j))
+                members[2] = img.getpixel((i - 1, j + 1))
+                members[3] = img.getpixel((i, j - 1))
+                members[4] = img.getpixel((i, j))
+                members[5] = img.getpixel((i, j + 1))
+                members[6] = img.getpixel((i + 1, j - 1))
+                members[7] = img.getpixel((i + 1, j))
+                members[8] = img.getpixel((i + 1, j + 1))
+                members.sort()
+                newimg.putpixel((i, j), (members[4]))
+
+        self.white_pixels.clear()
+        self.black_pixels.clear()
+        image_array = numpy.uint8(newimg)
+        image_array.setflags(write=1)
+        image_binarize_array = binarize_array(image_array)
+        # TODO resize image
+        # TODO crop image
+        # TODO resize image again
+        for i in range(image_binarize_array.shape[0]):
+            for j in range(image_binarize_array.shape[1]):
+                if image_binarize_array[i][j] == 255:
+                    self.add_white_pixel((i, j))
+                elif image_binarize_array[i][j] == 0:
+                    self.add_black_pixel((i, j))
+                else:
+                    raise ValueError('image not binarized')
 
     @classmethod
     def generate(cls, limphocit_type, heigth=28, width=28):
@@ -127,9 +170,6 @@ class Limphocit_B():
         image_array = numpy.uint8(image)
         image_array.setflags(write=1)
         image_binarize_array = binarize_array(image_array)
-        # TODO resize image
-        # TODO crop image
-        # TODO resize image again
         limphocit = cls(reaction_limit=reaction_limit, size=image.size[0])
         for i in range(image_binarize_array.shape[0]):
             for j in range(image_binarize_array.shape[1]):

@@ -4,7 +4,7 @@ import os
 import numpy
 from grey_scale import binarize_array, binarize_image
 
-image_path = '/home/user/research/Diploma/Diplom/image_recognition/images/trainingSetCopy/'
+image_path = '/home/user/research/Diploma/Diplom/image_recognition/images/finally/'
 training_set = {
                 '0': image_path + '0/',
                 '1': image_path + '1/',
@@ -28,20 +28,26 @@ def MyFilter(Box):
     temp_arr = numpy.sort(temp_arr)
     return temp_arr[4]
 
+
 def filter(path):
-    img = Image.fromarray(binarize_image(path, None, 160), 'L')
-    img1 = numpy.array(img, dtype=numpy.uint8)
-    Matrix = [[0 for x in range(img.size[0])] for y in range(img.size[1])]
-
-    for i in range(img.size[0] - 2):
-        for y in range(img.size[1] - 2):
-            local = img1[i:i + 3, y:y + 3]
-            Matrix[i + 1][y + 1] = MyFilter(local)
-
-    # finish part
-    image_matrix = numpy.uint8(Matrix)
-    image = Image.fromarray(image_matrix, 'L')
-    image.save(path)
+    img = Image.open(path)
+    members = [(0, 0)] * 9
+    width, height = img.size
+    newimg = Image.new("L", (width, height), "black")
+    for i in range(1, width - 1):
+        for j in range(1, height - 1):
+            members[0] = img.getpixel((i - 1, j - 1))
+            members[1] = img.getpixel((i - 1, j))
+            members[2] = img.getpixel((i - 1, j + 1))
+            members[3] = img.getpixel((i, j - 1))
+            members[4] = img.getpixel((i, j))
+            members[5] = img.getpixel((i, j + 1))
+            members[6] = img.getpixel((i + 1, j - 1))
+            members[7] = img.getpixel((i + 1, j))
+            members[8] = img.getpixel((i + 1, j + 1))
+            members.sort()
+            newimg.putpixel((i, j), (members[4]))
+    newimg.save(path, 'JPEG')
 
 
 def crop_all():
@@ -66,6 +72,14 @@ def crop_image(path):
     image.save('/home/user/1.jpg', 'JPEG', quality=100)
 
 
+def filter_all():
+    for key, path in training_set.items():
+        for filename in os.listdir(path):
+            fullpath = os.path.join(path, filename)
+            filter(fullpath)
+
+
 if __name__ == '__main__':
+    filter_all()
     # filter('/home/user/1.jpg')
-    crop_image('/home/user/img_92.jpg')
+    # crop_image('/home/user/img_92.jpg')

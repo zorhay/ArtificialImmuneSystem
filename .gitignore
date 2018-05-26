@@ -4,4 +4,6 @@ __pycache__
 *.png
 *.jpeg
 *.jpg
+*.ipynb
 mnist_dataset/
+ImageRecognition/images/
