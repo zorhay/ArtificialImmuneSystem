@@ -19,7 +19,7 @@ def resize_image(img, heigth):
 
 
 if __name__ == '__main__':
-    image_path = '/home/user/research/Diploma/Diplom/image_recognition/images/trainingSet/5/img_1322.jpg'
+    image_path = '/home/user/research/Diploma/ArtificialImmuneSystem/ImageRecognition/images/trainingSet/5/img_1322.jpg'
     image = Image.open(image_path).convert('L')
     image.show()
     image = trim(image)

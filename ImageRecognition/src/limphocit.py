@@ -133,9 +133,6 @@ class Limphocit_B():
         image_array = numpy.uint8(newimg)
         image_array.setflags(write=1)
         image_binarize_array = binarize_array(image_array)
-        # TODO resize image
-        # TODO crop image
-        # TODO resize image again
         for i in range(image_binarize_array.shape[0]):
             for j in range(image_binarize_array.shape[1]):
                 if image_binarize_array[i][j] == 255:
@@ -186,9 +183,6 @@ class Limphocit_B():
         image_array = numpy.uint8(pil_image)
         image_array.setflags(write=1)
         image_binarize_array = binarize_array(image_array)
-        # TODO resize image
-        # TODO crop image
-        # TODO resize image again
         limphocit = cls(reaction_limit=reaction_limit, size=pil_image.size[0])
         for i in range(image_binarize_array.shape[0]):
             for j in range(image_binarize_array.shape[1]):

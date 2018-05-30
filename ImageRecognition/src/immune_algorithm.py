@@ -1,11 +1,12 @@
 from math import exp
 import os
 import random
+import pickle
 from limphocit import Limphocit_B
 
-image_path = '/home/user/research/Diploma/Diplom/image_recognition/images/trainingSet/'
-limpho_path = '/home/user/research/Diploma/Diplom/image_recognition/images/limphocites/'
-mutant_path = '/home/user/research/Diploma/Diplom/image_recognition/images/finally/'
+image_path = '/home/user/research/Diploma/ArtificialImmuneSystem/ImageRecognition/MNIST/test_set/'
+limpho_path = '/home/user/research/Diploma/ArtificialImmuneSystem/ImageRecognition/MNIST/limphocites/'
+
 training_set = {
                 '0': image_path + '0/',
                 '1': image_path + '1/',
@@ -32,18 +33,6 @@ limphocites_set = {
                 '9': limpho_path + '9/'
                 }
 
-mutant_set = {
-                '0': mutant_path + '0/',
-                '1': mutant_path + '1/',
-                '2': mutant_path + '2/',
-                '3': mutant_path + '3/',
-                '4': mutant_path + '4/',
-                '5': mutant_path + '5/',
-                '6': mutant_path + '6/',
-                '7': mutant_path + '7/',
-                '8': mutant_path + '8/',
-                '9': mutant_path + '9/'
-                }
 
 
 class ImmuneAlgorithm(object):
@@ -81,22 +70,24 @@ class ImmuneAlgorithm(object):
         for key in self.counters.keys():
             self.counters[key] = 0
 
-    def save_immune_network_to_memory(cls, path):
-        # TODO implement, use pickle
-        pass
+    def save_immune_network_to_memory(self, path):
+        with open(path, 'wb') as output:
+            pickle.dump(self, output, pickle.HIGHEST_PROTOCOL)
 
+
+    @classmethod
     def load_immune_network_from_memory(cls, path):
-        #TODO  load immune network from memory
-        pass
+        with open(path, 'rb') as input:
+            return pickle.load(input)
 
-    def create_network(self, training_set):
+    def create_network(self, limphocit_set):
         self.immune_system.clear()
         self.counters.clear()
-        for key in training_set.keys():
+        for key in limphocit_set.keys():
             self.immune_system[key] = []
             self.counters[key] = 0
         Limphocit_B.init()
-        for symbol, path in training_set.items():
+        for symbol, path in limphocit_set.items():
             # for filename in os.listdir(path)[0:self.network_power]:
             for filename in random.sample(os.listdir(path), self.network_power):
                 fullpath = os.path.join(path, filename)
@@ -112,15 +103,15 @@ class ImmuneAlgorithm(object):
                     limphocit.mutation(antigen, 0.1)
 
 
-    def reload_limphocites(self, training_set):
+    def reload_limphocites(self, limphocit_set):
         self.immune_system.clear()
         self.counters.clear()
-        for key in training_set.keys():
+        for key in limphocit_set.keys():
             self.immune_system[key] = []
             self.counters[key] = 0
         Limphocit_B.init()
-        for symbol, path in training_set.items():
-            for filename in os.listdir(path):
+        for symbol, path in limphocit_set.items():
+            for filename in os.listdir(path)[:self.network_power]:
                 fullpath = os.path.join(path, filename)
                 self.immune_system[symbol].append(Limphocit_B.get_from_image(fullpath))
 
@@ -139,12 +130,11 @@ class ImmuneAlgorithm(object):
 
     def recognition_image(self, path):
         antigen = Limphocit_B.get_from_image(path)
-        # return self.recognition_antigen(antigen)
-        return {'symbol': '5'}
+        return self.recognition_antigen(antigen)
 
-    def test_recognition_all(self, training_set, antigen_count):
+    def test_recognition_all(self, antigen_set, antigen_count):
         results = {}
-        for symbol, path in training_set.items():
+        for symbol, path in antigen_set.items():
             antigens = []
             truth_count = 0
             for filename in random.sample(os.listdir(path), antigen_count):

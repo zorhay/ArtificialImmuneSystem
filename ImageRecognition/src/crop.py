@@ -4,7 +4,7 @@ import os
 import numpy
 from grey_scale import binarize_array, binarize_image
 
-image_path = '/home/user/research/Diploma/Diplom/image_recognition/images/finally/'
+image_path = '/home/user/research/Diploma/ArtificialImmuneSystem/ImageRecognition/images/finally/'
 training_set = {
                 '0': image_path + '0/',
                 '1': image_path + '1/',
