@@ -1,0 +1,37 @@
+{
+  "created_utc": "2026-10-11T23:01:42.921173+00:00",
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "mutation_power": 0.1,
+  "reaction_affinity": 0.3,
+  "templates_per_digit": 21,
+  "training_per_digit": 500,
+  "epochs": 1,
+  "pixel_threshold": 200,
+  "training_order": "same class-blocked, within-class shuffled order and initial templates as previous experiment",
+  "candidate": "update only on wrong or unrecognized training predictions, closest same-class template, uniform rule for all digits",
+  "control": "current closest-template training updates every training image",
+  "validation": "original 5000-image validation set; previous confirmation set not evaluated",
+  "fresh_holdout": "5000 new official-training rows, 500 per digit, excludes all prior training, validation, and confirmation rows",
+  "gate": "open fresh holdout only if candidate mean validation accuracy exceeds control; one fixed candidate, no threshold/rate tuning",
+  "promotion": "no automatic production change; report evidence and per-digit tradeoffs",
+  "official_test_set_used": false,
+  "script_sha256": "fe2800d892d7e19a3552c0a76f3cdb14dcd90d1eb32a3738a2b1e5289fb762b3",
+  "production_sha256": {
+    "ImageRecognition/src/recognition.py": "c689c83761b5618c0ea275b8a25a02639d70a7ce91b478c0e889aedb24de28e3",
+    "ImageRecognition/src/benchmark.py": "2edfeb4c0ce691942e08cff62eee6bc9f077d992c75a2911ea7498413c6c9b3a",
+    "ImageRecognition/src/limphocit.py": "9b8d440ee6726931dcd052e422f7a85d1773976b1a5a47fa3463b44d82dd3671",
+    "ImageRecognition/src/__init__.py": "87c9c55366b14942790365b8d05a2dfd0a2715b537e8f38d047e231bbf0a1c07",
+    "ImageRecognition/src/grey_scale.py": "5b3824ac9a6ff47b0a0a1d5bd56c25dab161e72f5592cefef02cf3b4c141233f",
+    "ImageRecognition/src/crop.py": "7b44d8425f8f86e1a672a0dc33655a3fd0f253ad338e4054e62619109ce8d9d4",
+    "ImageRecognition/src/dataset.py": "7c09eba2aaa40da9be066c0e0664cbfdceba6e8e9138d9e38948fa49a2e0542a",
+    "ImageRecognition/src/experiment.py": "d3a8ccfb924cbb27a2e24c2a52e34085a110459b234d131d8986e0be46e95705",
+    "ImageRecognition/src/cli.py": "699f39f8ed3744c678798309ce9954d178f805808d6b9b9eb7e635a746c30c7c",
+    "ImageRecognition/src/immune_algorithm.py": "89d622861504ca061651c7847a5d967c04b018b4d13d08381329b260fb0ff59b",
+    "ImageRecognition/src/main.py": "2cd0ca27a3cb572cf4ec97e5272cb2035cd1f8815e38ed16310af26338c763da",
+    "ImageRecognition/src/scale.py": "292600e499ba4f2429d55b1440ca06551f625e5a5d48798a28259279e7e9fed7"
+  }
+}

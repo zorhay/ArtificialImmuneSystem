@@ -1,0 +1,6 @@
+{
+  "baseline_mean_validation": 0.7321333333333333,
+  "candidate_mean_validation": 0.6969333333333333,
+  "validation_gain": -0.03520000000000001,
+  "fresh_holdout_opened": false
+}

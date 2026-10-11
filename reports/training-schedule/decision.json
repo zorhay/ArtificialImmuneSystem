@@ -1,0 +1,75 @@
+{
+  "grid": [
+    {
+      "variant": "constant-500",
+      "mean_accuracy": 0.7321333333333333,
+      "sd_accuracy": 0.0033005050118630743,
+      "seed_accuracies": [
+        0.7294,
+        0.7358,
+        0.7312
+      ]
+    },
+    {
+      "variant": "constant-100",
+      "mean_accuracy": 0.7030666666666666,
+      "sd_accuracy": 0.009508592605287781,
+      "seed_accuracies": [
+        0.6938,
+        0.7026,
+        0.7128
+      ]
+    },
+    {
+      "variant": "constant-250",
+      "mean_accuracy": 0.7104,
+      "sd_accuracy": 0.003411744421846359,
+      "seed_accuracies": [
+        0.7094,
+        0.7142,
+        0.7076
+      ]
+    },
+    {
+      "variant": "decay-100",
+      "mean_accuracy": 0.7014666666666667,
+      "sd_accuracy": 0.010100165015153628,
+      "seed_accuracies": [
+        0.7014,
+        0.6914,
+        0.7116
+      ]
+    },
+    {
+      "variant": "decay-250",
+      "mean_accuracy": 0.7123333333333334,
+      "sd_accuracy": 0.008438799282678352,
+      "seed_accuracies": [
+        0.7044,
+        0.7114,
+        0.7212
+      ]
+    },
+    {
+      "variant": "decay-500",
+      "mean_accuracy": 0.724,
+      "sd_accuracy": 0.003599999999999992,
+      "seed_accuracies": [
+        0.7204,
+        0.724,
+        0.7276
+      ]
+    }
+  ],
+  "selected": {
+    "variant": "constant-500",
+    "mean_accuracy": 0.7321333333333333,
+    "sd_accuracy": 0.0033005050118630743,
+    "seed_accuracies": [
+      0.7294,
+      0.7358,
+      0.7312
+    ]
+  },
+  "fresh_holdout_opened": false
+}
