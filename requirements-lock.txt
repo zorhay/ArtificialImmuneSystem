@@ -1,0 +1,10 @@
+# Exact environment used for the recorded MNIST experiment: Python 3.13.5, macOS arm64.
+# For other Python versions, install using pyproject.toml instead.
+-e .
+iniconfig==2.3.1
+numpy==2.5.4
+packaging==26.3
+pillow==12.3.0
+pluggy==1.6.0
+pygments==2.21.0
+pytest==9.1.1

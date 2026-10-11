@@ -1,0 +1,11 @@
+file,true_digit,prediction,all_scores_zero
+/Users/zori/projects/ArtificialImmuneSystem/data/mnist/images/test/0/01094.png,0,0,True
+/Users/zori/projects/ArtificialImmuneSystem/data/mnist/images/test/1/04032.png,1,0,True
+/Users/zori/projects/ArtificialImmuneSystem/data/mnist/images/test/2/04341.png,2,0,True
+/Users/zori/projects/ArtificialImmuneSystem/data/mnist/images/test/3/02011.png,3,0,True
+/Users/zori/projects/ArtificialImmuneSystem/data/mnist/images/test/4/06859.png,4,0,True
+/Users/zori/projects/ArtificialImmuneSystem/data/mnist/images/test/5/09160.png,5,0,True
+/Users/zori/projects/ArtificialImmuneSystem/data/mnist/images/test/6/05660.png,6,0,True
+/Users/zori/projects/ArtificialImmuneSystem/data/mnist/images/test/7/04900.png,7,0,True
+/Users/zori/projects/ArtificialImmuneSystem/data/mnist/images/test/8/04639.png,8,0,True
+/Users/zori/projects/ArtificialImmuneSystem/data/mnist/images/test/9/03001.png,9,0,True

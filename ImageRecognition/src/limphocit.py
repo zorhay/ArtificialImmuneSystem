@@ -2,7 +2,10 @@ import random
 from itertools import product
 import numpy
 from PIL import Image
-from grey_scale import binarize_array
+if __package__:
+    from .grey_scale import binarize_array
+else:
+    from grey_scale import binarize_array
 
 
 class Limphocit_B():
@@ -101,12 +104,12 @@ class Limphocit_B():
     def mutation(self, antigen, mutation_power=0.1):
         div_antigen_pixels = set([pixel for pixel in antigen.white_pixels if pixel not in self.white_pixels])
         pixel_count = int(len(div_antigen_pixels)*mutation_power)
-        input_pixels = set(random.sample(div_antigen_pixels, pixel_count))
+        input_pixels = set(random.sample(list(div_antigen_pixels), pixel_count))
         self.white_pixels = list(set(self.white_pixels) | input_pixels)
 
         div_limphocit_pixels = set([pixel for pixel in self.white_pixels if pixel not in antigen.white_pixels])
         pixel_count = int(len(div_limphocit_pixels) * mutation_power)
-        output_pixels = set(random.sample(div_limphocit_pixels, pixel_count))
+        output_pixels = set(random.sample(list(div_limphocit_pixels), pixel_count))
         self.black_pixels = list(set(self.black_pixels) | output_pixels)
 
     def filter(self):
@@ -130,7 +133,7 @@ class Limphocit_B():
 
         self.white_pixels.clear()
         self.black_pixels.clear()
-        image_array = numpy.uint8(newimg)
+        image_array = numpy.array(newimg, dtype=numpy.uint8, copy=True)
         image_array.setflags(write=1)
         image_binarize_array = binarize_array(image_array)
         for i in range(image_binarize_array.shape[0]):
@@ -164,7 +167,7 @@ class Limphocit_B():
     @classmethod
     def get_from_image(cls, image_path, reaction_limit=0.4):
         image = Image.open(image_path).convert('L')
-        image_array = numpy.uint8(image)
+        image_array = numpy.array(image, dtype=numpy.uint8, copy=True)
         image_array.setflags(write=1)
         image_binarize_array = binarize_array(image_array)
         limphocit = cls(reaction_limit=reaction_limit, size=image.size[0])
@@ -180,7 +183,7 @@ class Limphocit_B():
 
     @classmethod
     def get_from_pil_image(cls, pil_image, reaction_limit=0.4):
-        image_array = numpy.uint8(pil_image)
+        image_array = numpy.array(pil_image, dtype=numpy.uint8, copy=True)
         image_array.setflags(write=1)
         image_binarize_array = binarize_array(image_array)
         limphocit = cls(reaction_limit=reaction_limit, size=pil_image.size[0])

@@ -1,10 +1,17 @@
 from PIL import Image
-from scale import trim
+from pathlib import Path
+if __package__:
+    from .scale import trim
+else:
+    from scale import trim
 import os
 import numpy
-from grey_scale import binarize_array, binarize_image
+if __package__:
+    from .grey_scale import binarize_array, binarize_image
+else:
+    from grey_scale import binarize_array, binarize_image
 
-image_path = '/home/user/research/Diploma/ArtificialImmuneSystem/ImageRecognition/images/finally/'
+image_path = str(Path(os.environ.get('AIS_DATA_DIR', Path(__file__).resolve().parents[2] / 'data' / 'mnist')) / 'images' / 'train') + os.sep
 training_set = {
                 '0': image_path + '0/',
                 '1': image_path + '1/',
@@ -59,17 +66,17 @@ def crop_all():
             np_image = binarize_array(np_image, 150)
             image = Image.fromarray(numpy.uint8(np_image), 'L')
             image = trim(image)
-            image = image.resize((28, 28), Image.ANTIALIAS)
+            image = image.resize((28, 28), Image.Resampling.LANCZOS)
         image.save(fullpath)
 
-def crop_image(path):
+def crop_image(path, output_path='1.jpg'):
     image = Image.open(path).convert('L')
     np_image = numpy.array(image)
     np_image = binarize_array(np_image, 150)
     image = Image.fromarray(numpy.uint8(np_image), 'L')
     image = trim(image)
     image = image.resize((28, 28), Image.LANCZOS)
-    image.save('/home/user/1.jpg', 'JPEG', quality=100)
+    image.save(output_path, 'JPEG', quality=100)
 
 
 def filter_all():

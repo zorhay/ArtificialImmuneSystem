@@ -2,10 +2,16 @@ from math import exp
 import os
 import random
 import pickle
-from limphocit import Limphocit_B
+from pathlib import Path
 
-image_path = '/home/user/research/Diploma/ArtificialImmuneSystem/ImageRecognition/MNIST/test_set/'
-limpho_path = '/home/user/research/Diploma/ArtificialImmuneSystem/ImageRecognition/MNIST/limphocites/'
+if __package__:
+    from .limphocit import Limphocit_B
+else:
+    from limphocit import Limphocit_B
+
+_data_root = Path(os.environ.get('AIS_DATA_DIR', Path(__file__).resolve().parents[2] / 'data' / 'mnist'))
+image_path = str(_data_root / 'images' / 'train') + os.sep
+limpho_path = image_path
 
 training_set = {
                 '0': image_path + '0/',

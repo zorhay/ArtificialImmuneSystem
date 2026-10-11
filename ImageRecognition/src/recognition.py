@@ -1,21 +1,14 @@
-from immune_algorithm import ImmuneAlgorithm, limphocites_set
-from limphocit import Limphocit_B
-import sys
+"""Compatibility entry point for single-image recognition."""
 
-if __name__ == '__main__':
-    if len(sys.argv) < 2:
-        print('Please enter image path!')
-        sys.exit(0)
-    elif len(sys.argv) > 2:
-        print('Many arguments are entered.')
-        sys.exit(0)
-    input_image = sys.argv[1]
+if __package__:
+    from .cli import main
+else:
+    import sys
+    from pathlib import Path
+    sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+    from ImageRecognition.src.cli import main
 
-    print('Immune System initialization...')
-    im_alg = ImmuneAlgorithm(28, 28, 0.8, 21)
-    print('Loading limphocites...')
-    im_alg.reload_limphocites(limphocites_set)
-    print('Recognition: ' + sys.argv[1] + ' ...')
-    result = im_alg.recognition_image(input_image)
-    print('result: ' + result)
+if __name__ == "__main__":
+    import sys
+    main(["predict", *sys.argv[1:]])
 

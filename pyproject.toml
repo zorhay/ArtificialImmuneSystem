@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "artificial-immune-system"
+version = "0.1.0"
+description = "Immune-inspired handwritten digit recognition on MNIST"
+requires-python = ">=3.9"
+dependencies = ["numpy>=1.26,<3", "Pillow>=10,<13"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10"]
+
+[project.scripts]
+ais = "ImageRecognition.src.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["ImageRecognition*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
