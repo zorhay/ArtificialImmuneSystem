@@ -57,7 +57,7 @@ def test_cli_predict_and_legacy_entrypoint_reload_original_state(tmp_path):
                                    check=True, capture_output=True, text=True, cwd=root)
         result = json.loads(completed.stdout)
         assert result["prediction"] == 1
-        assert result["reaction_affinity"] == 0.4
+        assert result["reaction_affinity"] == 0.3
     # The override is for inference; the serialized model itself stays unchanged.
     restored, _ = load_model(model_path)
     assert restored.main_affinity_to_react == 0.8
@@ -78,7 +78,8 @@ def test_original_train_save_load_evaluate_pipeline(tmp_path):
     model_path = train(tmp_path, tmp_path / "output", templates=1, train_per_class=1)
     results = evaluate(tmp_path, model_path, tmp_path / "report", test_per_class=1)
     assert results["correct"] == results["test_examples"] == 10
-    assert results["evaluation_affinity"] == results["saved_model_affinity"] == 0.4
+    assert results["evaluation_affinity"] == results["saved_model_affinity"] == 0.3
+    assert results['training']['update_selection'] == 'closest'
     assert results["unrecognized"] == 0
     assert (tmp_path / "report" / "predictions.csv").exists()
     # Rejected images must remain in the accuracy denominator and in the CSV.

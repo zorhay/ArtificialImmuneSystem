@@ -1,0 +1,84 @@
+{
+  "mean_accuracy": 0.6276,
+  "sd_accuracy": 0.01265819892401759,
+  "mean_baseline_accuracy": 0.7107333333333333,
+  "mean_coverage": 0.9396666666666667,
+  "mean_recognized_accuracy": 0.6678575877378633,
+  "paired_accuracy_changes": {
+    "42": -0.07200000000000006,
+    "43": -0.07769999999999999,
+    "44": -0.09970000000000001
+  },
+  "top_errors_pooled_three_seeds": [
+    {
+      "true": 4,
+      "prediction": 9,
+      "count": 904
+    },
+    {
+      "true": 5,
+      "prediction": 3,
+      "count": 520
+    },
+    {
+      "true": 3,
+      "prediction": 8,
+      "count": 446
+    },
+    {
+      "true": 5,
+      "prediction": 8,
+      "count": 409
+    },
+    {
+      "true": 8,
+      "prediction": 3,
+      "count": 347
+    },
+    {
+      "true": 5,
+      "prediction": "unrecognized",
+      "count": 327
+    },
+    {
+      "true": 9,
+      "prediction": 7,
+      "count": 314
+    },
+    {
+      "true": 7,
+      "prediction": 9,
+      "count": 301
+    },
+    {
+      "true": 2,
+      "prediction": 8,
+      "count": 286
+    },
+    {
+      "true": 5,
+      "prediction": 0,
+      "count": 274
+    },
+    {
+      "true": 8,
+      "prediction": 1,
+      "count": 236
+    },
+    {
+      "true": 6,
+      "prediction": 0,
+      "count": 228
+    }
+  ],
+  "zero_votes_by_seed": {
+    "42": 608,
+    "43": 539,
+    "44": 659
+  },
+  "tied_maxima_by_seed": {
+    "42": 0,
+    "43": 3,
+    "44": 1
+  }
+}

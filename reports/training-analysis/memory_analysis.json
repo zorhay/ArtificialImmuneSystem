@@ -1,0 +1,21 @@
+{
+  "scope": "Exact expectation for a pixel in the current all-template update with stochastic rounding, fixed input sequence, constant mutation rate. Not a claim that actual random templates equal their expected image.",
+  "recurrence": "E[x_t] = (1-p) E[x_(t-1)] + p*a_t",
+  "rates": {
+    "0.1": {
+      "half_life_examples": 6.578813478960585,
+      "examples_for_95_percent_weight": 29,
+      "initial_weight_after_500": 1.322070819480823e-23
+    },
+    "0.03": {
+      "half_life_examples": 22.75657306277341,
+      "examples_for_95_percent_weight": 99,
+      "initial_weight_after_500": 2.431460020979148e-07
+    },
+    "0.01": {
+      "half_life_examples": 68.96756393652842,
+      "examples_for_95_percent_weight": 299,
+      "initial_weight_after_500": 0.006570483042414603
+    }
+  }
+}

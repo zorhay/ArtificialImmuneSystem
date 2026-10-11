@@ -1,4 +1,4 @@
-from math import exp
+from math import exp, log
 import os
 import random
 import pickle
@@ -13,7 +13,7 @@ _data_root = Path(os.environ.get('AIS_DATA_DIR', Path(__file__).resolve().parent
 image_path = str(_data_root / 'images' / 'train') + os.sep
 limpho_path = image_path
 
-DEFAULT_AFFINITY = 0.4
+DEFAULT_AFFINITY = 0.3
 UNRECOGNIZED = 'unrecognized'
 
 training_set = {
@@ -45,8 +45,6 @@ limphocites_set = {
 
 
 class ImmuneAlgorithm(object):
-    counters = {} # affinityes
-    immune_system = {} # limphocites
     main_affinity_to_react = None
     antigen_width = None
     antigen_height = None
@@ -54,6 +52,8 @@ class ImmuneAlgorithm(object):
     training_set = {}
 
     def __init__(self, antigen_width, antigen_height, main_affinity_to_react, network_power):
+        self.counters = {}
+        self.immune_system = {}
         self.antigen_width = antigen_width
         self.antigen_height = antigen_height
         self.main_affinity_to_react = main_affinity_to_react
@@ -68,12 +68,32 @@ class ImmuneAlgorithm(object):
     def set_affinity_to_react(cls, affinity):
         cls.main_affinity_to_react = affinity
 
-    def get_increment_value(self, affinity):
-        try:
-            increment = affinity * exp(1 / (1 - affinity))
-        except (OverflowError, ZeroDivisionError):
-            increment = float('inf')
-        return increment
+    def recognition_affinities(self, affinities):
+        """Sum the original exponential votes using a common finite scale.
+
+        Exact matches dominate finite votes; count them instead of adding infinity.
+        Tied maximum evidence, like zero evidence, cannot identify a unique class.
+        Counters are relative vote totals, not probabilities.
+        """
+        self.counters = {key: 0.0 for key in affinities}
+        reacting = [(key, affinity) for key, values in affinities.items()
+                    for affinity in values
+                    if affinity > 0 and affinity >= self.main_affinity_to_react]
+        exact = [key for key, affinity in reacting if affinity == 1]
+        if exact:
+            for key in exact:
+                self.counters[key] += 1
+        elif reacting:
+            weights = [(key, log(affinity) + 1 / (1 - affinity))
+                       for key, affinity in reacting]
+            scale = max(weight for _, weight in weights)
+            for key, weight in weights:
+                self.counters[key] += exp(weight - scale)
+        if not any(self.counters.values()):
+            return UNRECOGNIZED
+        maximum = max(self.counters.values())
+        winners = [key for key, score in self.counters.items() if score == maximum]
+        return winners[0] if len(winners) == 1 else UNRECOGNIZED
 
     def clear_counters(self):
         for key in self.counters.keys():
@@ -103,12 +123,26 @@ class ImmuneAlgorithm(object):
                 self.immune_system[symbol].append(Limphocit_B.get_from_image(fullpath))
 
 
-    def training(self, training_set, set_size):
+    def training(self, training_set, set_size, filenames=None, update_selection='closest'):
+        """Mutate one closest same-class template per image; keep all for controls."""
+        if update_selection not in ('closest', 'all'):
+            raise ValueError('update_selection must be closest or all')
         for symbol, dirpath in training_set.items():
-            for filename in os.listdir(dirpath)[:set_size]:
+            cells = self.immune_system[symbol]
+            if not cells:
+                raise ValueError(f'No templates for class {symbol}')
+            names = os.listdir(dirpath) if filenames is None else filenames[symbol]
+            for filename in names[:set_size]:
                 fullpath = os.path.join(dirpath, filename)
                 antigen = self.load_antigen_by_path(fullpath)
-                for limphocit in self.immune_system[symbol]:
+                selected = cells
+                if update_selection == 'closest':
+                    affinities = [cell.affinity(antigen) for cell in cells]
+                    maximum = max(affinities)
+                    candidates = [cell for cell, affinity in zip(cells, affinities)
+                                  if affinity == maximum]
+                    selected = [random.choice(candidates)] if len(candidates) > 1 else candidates
+                for limphocit in selected:
                     limphocit.mutation(antigen, 0.1)
 
 
@@ -128,16 +162,9 @@ class ImmuneAlgorithm(object):
         return Limphocit_B.get_from_image(path)
 
     def recognition_antigen(self, antigen):
-        self.clear_counters()
-        for key, limphocites in self.immune_system.items():
-            for limphocit in limphocites:
-                affinity = limphocit.affinity(antigen)
-                if affinity >= self.main_affinity_to_react:
-                    increment = self.get_increment_value(affinity)
-                    self.counters[key] += increment
-        if not any(self.counters.values()):
-            return UNRECOGNIZED
-        return max(self.counters, key=self.counters.get)
+        return self.recognition_affinities({
+            key: [limphocit.affinity(antigen) for limphocit in limphocites]
+            for key, limphocites in self.immune_system.items()})
 
     def recognition_image(self, path):
         antigen = Limphocit_B.get_from_image(path)

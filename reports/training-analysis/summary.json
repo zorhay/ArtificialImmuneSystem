@@ -1,0 +1,29 @@
+{
+  "initial": {
+    "mean_accuracy": 0.7016666666666667,
+    "sd_accuracy": 0.009932438438436655,
+    "seed_accuracies": [
+      0.6928,
+      0.6998,
+      0.7124
+    ]
+  },
+  "current": {
+    "mean_accuracy": 0.6444666666666666,
+    "sd_accuracy": 0.010555251457607879,
+    "seed_accuracies": [
+      0.6394,
+      0.6566,
+      0.6374
+    ]
+  },
+  "closest-0.1": {
+    "mean_accuracy": 0.7224666666666666,
+    "sd_accuracy": 0.0011015141094572268,
+    "seed_accuracies": [
+      0.723,
+      0.7232,
+      0.7212
+    ]
+  }
+}

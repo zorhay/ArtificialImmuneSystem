@@ -1,0 +1,12 @@
+{
+  "seed": 42,
+  "training_per_class": 500,
+  "threshold": 0.3,
+  "test_examples": 10000,
+  "matching_predictions": 10000,
+  "correct": 6262,
+  "accuracy": 0.6262,
+  "seconds": 293.49899341596756,
+  "path": "model.recognition_image -> original coordinate-list affinity -> production voting",
+  "command": "PYTHONPATH=. .venv/bin/python reports/current-approach/verify_native.py"
+}

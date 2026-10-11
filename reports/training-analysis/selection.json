@@ -1,0 +1,402 @@
+{
+  "grid": [
+    {
+      "variant": "initial",
+      "threshold": 0.0,
+      "mean_accuracy": 0.7110666666666666,
+      "sd_accuracy": 0.011900140055198228,
+      "seed_accuracies": [
+        0.708,
+        0.701,
+        0.7242
+      ]
+    },
+    {
+      "variant": "initial",
+      "threshold": 0.2,
+      "mean_accuracy": 0.6991333333333334,
+      "sd_accuracy": 0.008922630404389374,
+      "seed_accuracies": [
+        0.6984,
+        0.6906,
+        0.7084
+      ]
+    },
+    {
+      "variant": "initial",
+      "threshold": 0.3,
+      "mean_accuracy": 0.7065333333333333,
+      "sd_accuracy": 0.00958610104960997,
+      "seed_accuracies": [
+        0.7008,
+        0.7012,
+        0.7176
+      ]
+    },
+    {
+      "variant": "initial",
+      "threshold": 0.4,
+      "mean_accuracy": 0.6862,
+      "sd_accuracy": 0.0039949968710876575,
+      "seed_accuracies": [
+        0.6818,
+        0.6896,
+        0.6872
+      ]
+    },
+    {
+      "variant": "current",
+      "threshold": 0.0,
+      "mean_accuracy": 0.6454,
+      "sd_accuracy": 0.010347946656221223,
+      "seed_accuracies": [
+        0.648,
+        0.6542,
+        0.634
+      ]
+    },
+    {
+      "variant": "current",
+      "threshold": 0.2,
+      "mean_accuracy": 0.6419333333333334,
+      "sd_accuracy": 0.01058363516629961,
+      "seed_accuracies": [
+        0.6442,
+        0.6512,
+        0.6304
+      ]
+    },
+    {
+      "variant": "current",
+      "threshold": 0.3,
+      "mean_accuracy": 0.6079333333333333,
+      "sd_accuracy": 0.012522513059818849,
+      "seed_accuracies": [
+        0.6088,
+        0.62,
+        0.595
+      ]
+    },
+    {
+      "variant": "current",
+      "threshold": 0.4,
+      "mean_accuracy": 0.45006666666666667,
+      "sd_accuracy": 0.021932928061098752,
+      "seed_accuracies": [
+        0.4612,
+        0.4642,
+        0.4248
+      ]
+    },
+    {
+      "variant": "all-0.03",
+      "threshold": 0.0,
+      "mean_accuracy": 0.6786,
+      "sd_accuracy": 0.01360735095453921,
+      "seed_accuracies": [
+        0.6836,
+        0.689,
+        0.6632
+      ]
+    },
+    {
+      "variant": "all-0.03",
+      "threshold": 0.2,
+      "mean_accuracy": 0.6756666666666666,
+      "sd_accuracy": 0.013535631988693172,
+      "seed_accuracies": [
+        0.6804,
+        0.6862,
+        0.6604
+      ]
+    },
+    {
+      "variant": "all-0.03",
+      "threshold": 0.3,
+      "mean_accuracy": 0.6369333333333334,
+      "sd_accuracy": 0.01243596933629756,
+      "seed_accuracies": [
+        0.6418,
+        0.6462,
+        0.6228
+      ]
+    },
+    {
+      "variant": "all-0.03",
+      "threshold": 0.4,
+      "mean_accuracy": 0.4729333333333333,
+      "sd_accuracy": 0.018068019629536955,
+      "seed_accuracies": [
+        0.48,
+        0.4864,
+        0.4524
+      ]
+    },
+    {
+      "variant": "all-0.01",
+      "threshold": 0.0,
+      "mean_accuracy": 0.6962666666666667,
+      "sd_accuracy": 0.01180225967064503,
+      "seed_accuracies": [
+        0.7082,
+        0.696,
+        0.6846
+      ]
+    },
+    {
+      "variant": "all-0.01",
+      "threshold": 0.2,
+      "mean_accuracy": 0.6928666666666666,
+      "sd_accuracy": 0.011200595222278727,
+      "seed_accuracies": [
+        0.704,
+        0.693,
+        0.6816
+      ]
+    },
+    {
+      "variant": "all-0.01",
+      "threshold": 0.3,
+      "mean_accuracy": 0.6530666666666667,
+      "sd_accuracy": 0.009704294581953552,
+      "seed_accuracies": [
+        0.6626,
+        0.6534,
+        0.6432
+      ]
+    },
+    {
+      "variant": "all-0.01",
+      "threshold": 0.4,
+      "mean_accuracy": 0.4786,
+      "sd_accuracy": 0.010762899237658961,
+      "seed_accuracies": [
+        0.4874,
+        0.4818,
+        0.4666
+      ]
+    },
+    {
+      "variant": "closest-0.1",
+      "threshold": 0.0,
+      "mean_accuracy": 0.7306666666666667,
+      "sd_accuracy": 0.010245649483235968,
+      "seed_accuracies": [
+        0.7348,
+        0.719,
+        0.7382
+      ]
+    },
+    {
+      "variant": "closest-0.1",
+      "threshold": 0.2,
+      "mean_accuracy": 0.7164666666666667,
+      "sd_accuracy": 0.013819310161268335,
+      "seed_accuracies": [
+        0.7276,
+        0.701,
+        0.7208
+      ]
+    },
+    {
+      "variant": "closest-0.1",
+      "threshold": 0.3,
+      "mean_accuracy": 0.7321333333333333,
+      "sd_accuracy": 0.0033005050118630743,
+      "seed_accuracies": [
+        0.7294,
+        0.7358,
+        0.7312
+      ]
+    },
+    {
+      "variant": "closest-0.1",
+      "threshold": 0.4,
+      "mean_accuracy": 0.6974,
+      "sd_accuracy": 0.0018330302779823037,
+      "seed_accuracies": [
+        0.6978,
+        0.699,
+        0.6954
+      ]
+    },
+    {
+      "variant": "closest-0.03",
+      "threshold": 0.0,
+      "mean_accuracy": 0.7064666666666667,
+      "sd_accuracy": 0.01203550303615653,
+      "seed_accuracies": [
+        0.7142,
+        0.6926,
+        0.7126
+      ]
+    },
+    {
+      "variant": "closest-0.03",
+      "threshold": 0.2,
+      "mean_accuracy": 0.6931999999999999,
+      "sd_accuracy": 0.009701546268507909,
+      "seed_accuracies": [
+        0.703,
+        0.6836,
+        0.693
+      ]
+    },
+    {
+      "variant": "closest-0.03",
+      "threshold": 0.3,
+      "mean_accuracy": 0.7048,
+      "sd_accuracy": 0.0070085661871741,
+      "seed_accuracies": [
+        0.7116,
+        0.6976,
+        0.7052
+      ]
+    },
+    {
+      "variant": "closest-0.03",
+      "threshold": 0.4,
+      "mean_accuracy": 0.6778666666666666,
+      "sd_accuracy": 0.006730032194078558,
+      "seed_accuracies": [
+        0.6842,
+        0.6786,
+        0.6708
+      ]
+    },
+    {
+      "variant": "old-rounding",
+      "threshold": 0.0,
+      "mean_accuracy": 0.6470666666666667,
+      "sd_accuracy": 0.006306610288683905,
+      "seed_accuracies": [
+        0.6532,
+        0.6474,
+        0.6406
+      ]
+    },
+    {
+      "variant": "old-rounding",
+      "threshold": 0.2,
+      "mean_accuracy": 0.6437333333333333,
+      "sd_accuracy": 0.00695509405639731,
+      "seed_accuracies": [
+        0.6516,
+        0.6412,
+        0.6384
+      ]
+    },
+    {
+      "variant": "old-rounding",
+      "threshold": 0.3,
+      "mean_accuracy": 0.6092666666666666,
+      "sd_accuracy": 0.005536545252531832,
+      "seed_accuracies": [
+        0.61,
+        0.6144,
+        0.6034
+      ]
+    },
+    {
+      "variant": "old-rounding",
+      "threshold": 0.4,
+      "mean_accuracy": 0.45006666666666667,
+      "sd_accuracy": 0.023698382504578945,
+      "seed_accuracies": [
+        0.459,
+        0.468,
+        0.4232
+      ]
+    }
+  ],
+  "best_per_variant": {
+    "initial": {
+      "variant": "initial",
+      "threshold": 0.0,
+      "mean_accuracy": 0.7110666666666666,
+      "sd_accuracy": 0.011900140055198228,
+      "seed_accuracies": [
+        0.708,
+        0.701,
+        0.7242
+      ]
+    },
+    "current": {
+      "variant": "current",
+      "threshold": 0.0,
+      "mean_accuracy": 0.6454,
+      "sd_accuracy": 0.010347946656221223,
+      "seed_accuracies": [
+        0.648,
+        0.6542,
+        0.634
+      ]
+    },
+    "all-0.03": {
+      "variant": "all-0.03",
+      "threshold": 0.0,
+      "mean_accuracy": 0.6786,
+      "sd_accuracy": 0.01360735095453921,
+      "seed_accuracies": [
+        0.6836,
+        0.689,
+        0.6632
+      ]
+    },
+    "all-0.01": {
+      "variant": "all-0.01",
+      "threshold": 0.0,
+      "mean_accuracy": 0.6962666666666667,
+      "sd_accuracy": 0.01180225967064503,
+      "seed_accuracies": [
+        0.7082,
+        0.696,
+        0.6846
+      ]
+    },
+    "closest-0.1": {
+      "variant": "closest-0.1",
+      "threshold": 0.3,
+      "mean_accuracy": 0.7321333333333333,
+      "sd_accuracy": 0.0033005050118630743,
+      "seed_accuracies": [
+        0.7294,
+        0.7358,
+        0.7312
+      ]
+    },
+    "closest-0.03": {
+      "variant": "closest-0.03",
+      "threshold": 0.0,
+      "mean_accuracy": 0.7064666666666667,
+      "sd_accuracy": 0.01203550303615653,
+      "seed_accuracies": [
+        0.7142,
+        0.6926,
+        0.7126
+      ]
+    },
+    "old-rounding": {
+      "variant": "old-rounding",
+      "threshold": 0.0,
+      "mean_accuracy": 0.6470666666666667,
+      "sd_accuracy": 0.006306610288683905,
+      "seed_accuracies": [
+        0.6532,
+        0.6474,
+        0.6406
+      ]
+    }
+  },
+  "selected": {
+    "variant": "closest-0.1",
+    "threshold": 0.3,
+    "mean_accuracy": 0.7321333333333333,
+    "sd_accuracy": 0.0033005050118630743,
+    "seed_accuracies": [
+      0.7294,
+      0.7358,
+      0.7312
+    ]
+  }
+}

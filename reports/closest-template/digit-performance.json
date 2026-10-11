@@ -1,0 +1,292 @@
+{
+  "source": "reports/training-analysis/confirmation.json",
+  "source_sha256": "193f4268ac9bb3d66e3c2fb246be64dca69256b7c3ac691c6010df532c6c9d85",
+  "evaluation": "existing 5000-image confirmation set from official training split, 500 images per digit",
+  "new_evaluation": false,
+  "default_seed": 42,
+  "threshold": 0.3,
+  "production_templates_verified_against_evaluated_models": true,
+  "default_overall_accuracy": 0.723,
+  "ranking": [
+    {
+      "digit": "5",
+      "default_correct": 98,
+      "examples_per_run": 500,
+      "default_accuracy": 0.196,
+      "default_precision": 0.875,
+      "default_unrecognized": 25,
+      "default_most_common_errors": [
+        {
+          "prediction": "3",
+          "count": 128
+        },
+        {
+          "prediction": "0",
+          "count": 81
+        },
+        {
+          "prediction": "8",
+          "count": 67
+        }
+      ],
+      "mean_accuracy": 0.28,
+      "seed_accuracies": {
+        "42": 0.196,
+        "43": 0.328,
+        "44": 0.316
+      }
+    },
+    {
+      "digit": "4",
+      "default_correct": 320,
+      "examples_per_run": 500,
+      "default_accuracy": 0.64,
+      "default_precision": 0.8648648648648649,
+      "default_unrecognized": 10,
+      "default_most_common_errors": [
+        {
+          "prediction": "9",
+          "count": 120
+        },
+        {
+          "prediction": "6",
+          "count": 16
+        },
+        {
+          "prediction": "1",
+          "count": 12
+        }
+      ],
+      "mean_accuracy": 0.638,
+      "seed_accuracies": {
+        "42": 0.64,
+        "43": 0.652,
+        "44": 0.622
+      }
+    },
+    {
+      "digit": "2",
+      "default_correct": 330,
+      "examples_per_run": 500,
+      "default_accuracy": 0.66,
+      "default_precision": 0.8991825613079019,
+      "default_unrecognized": 11,
+      "default_most_common_errors": [
+        {
+          "prediction": "1",
+          "count": 36
+        },
+        {
+          "prediction": "3",
+          "count": 32
+        },
+        {
+          "prediction": "8",
+          "count": 30
+        }
+      ],
+      "mean_accuracy": 0.6573333333333333,
+      "seed_accuracies": {
+        "42": 0.66,
+        "43": 0.64,
+        "44": 0.672
+      }
+    },
+    {
+      "digit": "8",
+      "default_correct": 331,
+      "examples_per_run": 500,
+      "default_accuracy": 0.662,
+      "default_precision": 0.6554455445544555,
+      "default_unrecognized": 5,
+      "default_most_common_errors": [
+        {
+          "prediction": "3",
+          "count": 61
+        },
+        {
+          "prediction": "1",
+          "count": 44
+        },
+        {
+          "prediction": "9",
+          "count": 21
+        }
+      ],
+      "mean_accuracy": 0.7033333333333334,
+      "seed_accuracies": {
+        "42": 0.662,
+        "43": 0.702,
+        "44": 0.746
+      }
+    },
+    {
+      "digit": "7",
+      "default_correct": 367,
+      "examples_per_run": 500,
+      "default_accuracy": 0.734,
+      "default_precision": 0.8696682464454977,
+      "default_unrecognized": 15,
+      "default_most_common_errors": [
+        {
+          "prediction": "9",
+          "count": 70
+        },
+        {
+          "prediction": "unrecognized",
+          "count": 15
+        },
+        {
+          "prediction": "1",
+          "count": 14
+        }
+      ],
+      "mean_accuracy": 0.7426666666666667,
+      "seed_accuracies": {
+        "42": 0.734,
+        "43": 0.738,
+        "44": 0.756
+      }
+    },
+    {
+      "digit": "9",
+      "default_correct": 401,
+      "examples_per_run": 500,
+      "default_accuracy": 0.802,
+      "default_precision": 0.6094224924012158,
+      "default_unrecognized": 4,
+      "default_most_common_errors": [
+        {
+          "prediction": "7",
+          "count": 20
+        },
+        {
+          "prediction": "1",
+          "count": 19
+        },
+        {
+          "prediction": "4",
+          "count": 19
+        }
+      ],
+      "mean_accuracy": 0.7506666666666667,
+      "seed_accuracies": {
+        "42": 0.802,
+        "43": 0.74,
+        "44": 0.71
+      }
+    },
+    {
+      "digit": "3",
+      "default_correct": 411,
+      "examples_per_run": 500,
+      "default_accuracy": 0.822,
+      "default_precision": 0.6079881656804734,
+      "default_unrecognized": 9,
+      "default_most_common_errors": [
+        {
+          "prediction": "8",
+          "count": 23
+        },
+        {
+          "prediction": "1",
+          "count": 18
+        },
+        {
+          "prediction": "0",
+          "count": 13
+        }
+      ],
+      "mean_accuracy": 0.7233333333333334,
+      "seed_accuracies": {
+        "42": 0.822,
+        "43": 0.67,
+        "44": 0.678
+      }
+    },
+    {
+      "digit": "6",
+      "default_correct": 425,
+      "examples_per_run": 500,
+      "default_accuracy": 0.85,
+      "default_precision": 0.8284600389863548,
+      "default_unrecognized": 11,
+      "default_most_common_errors": [
+        {
+          "prediction": "0",
+          "count": 20
+        },
+        {
+          "prediction": "2",
+          "count": 13
+        },
+        {
+          "prediction": "8",
+          "count": 11
+        }
+      ],
+      "mean_accuracy": 0.8526666666666667,
+      "seed_accuracies": {
+        "42": 0.85,
+        "43": 0.866,
+        "44": 0.842
+      }
+    },
+    {
+      "digit": "0",
+      "default_correct": 451,
+      "examples_per_run": 500,
+      "default_accuracy": 0.902,
+      "default_precision": 0.7227564102564102,
+      "default_unrecognized": 3,
+      "default_most_common_errors": [
+        {
+          "prediction": "6",
+          "count": 17
+        },
+        {
+          "prediction": "3",
+          "count": 14
+        },
+        {
+          "prediction": "2",
+          "count": 5
+        }
+      ],
+      "mean_accuracy": 0.9086666666666667,
+      "seed_accuracies": {
+        "42": 0.902,
+        "43": 0.92,
+        "44": 0.904
+      }
+    },
+    {
+      "digit": "1",
+      "default_correct": 481,
+      "examples_per_run": 500,
+      "default_accuracy": 0.962,
+      "default_precision": 0.7332317073170732,
+      "default_unrecognized": 4,
+      "default_most_common_errors": [
+        {
+          "prediction": "8",
+          "count": 7
+        },
+        {
+          "prediction": "3",
+          "count": 4
+        },
+        {
+          "prediction": "unrecognized",
+          "count": 4
+        }
+      ],
+      "mean_accuracy": 0.968,
+      "seed_accuracies": {
+        "42": 0.962,
+        "43": 0.976,
+        "44": 0.966
+      }
+    }
+  ]
+}

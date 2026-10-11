@@ -104,17 +104,27 @@ class Limphocit_B():
     #     self.white_pixels = list(set(self.white_pixels) | input_pixels)
 
     def mutation(self, antigen, mutation_power=0.1):
+        if not 0 <= mutation_power <= 1:
+            raise ValueError('mutation_power must be between 0 and 1')
         div_antigen_pixels = set([pixel for pixel in antigen.white_pixels if pixel not in self.white_pixels])
-        pixel_count = int(len(div_antigen_pixels)*mutation_power)
+        pixel_count = self.mutation_count(len(div_antigen_pixels), mutation_power)
         input_pixels = set(random.sample(list(div_antigen_pixels), pixel_count))
         self.white_pixels = list(set(self.white_pixels) | input_pixels)
         self.black_pixels = list(set(self.black_pixels) - input_pixels)
 
         div_limphocit_pixels = set([pixel for pixel in self.white_pixels if pixel not in antigen.white_pixels])
-        pixel_count = int(len(div_limphocit_pixels) * mutation_power)
+        pixel_count = self.mutation_count(len(div_limphocit_pixels), mutation_power)
         output_pixels = set(random.sample(list(div_limphocit_pixels), pixel_count))
         self.black_pixels = list(set(self.black_pixels) | output_pixels)
         self.white_pixels = list(set(self.white_pixels) - output_pixels)
+
+    @staticmethod
+    def mutation_count(differences, power):
+        """Stochastic rounding preserves the requested rate without a dead zone."""
+        expected = differences * power
+        whole = int(expected)
+        fraction = expected - whole
+        return whole + int(fraction > 0 and random.random() < fraction)
 
     def filter(self):
         img = self.convert_to_image()

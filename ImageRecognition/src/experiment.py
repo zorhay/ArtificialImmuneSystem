@@ -21,7 +21,7 @@ def folders(data_dir, split):
 
 
 def save_model(model, path, metadata):
-    """Persist class-level state that the original pickle method omits."""
+    """Save models in the run-wrapper format, compatible with older artifacts."""
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("wb") as stream:
@@ -37,16 +37,14 @@ def load_model(path):
         saved = pickle.load(stream)
     if not isinstance(saved, dict) or saved.get("format") != "original-ais-run-v1":
         raise ValueError("Expected a model saved by the original-algorithm run wrapper")
-    ImmuneAlgorithm.immune_system.clear()
-    ImmuneAlgorithm.immune_system.update(saved["immune_system"])
-    ImmuneAlgorithm.counters.clear()
-    ImmuneAlgorithm.counters.update(saved["counters"])
+    saved["model"].immune_system = saved["immune_system"]
+    saved["model"].counters = saved["counters"]
     Limphocit_B.limfoset = saved["limfoset"]
     Limphocit_B.id_list = saved["id_list"]
     return saved["model"], saved["metadata"]
 
 
-def train(data_dir, output_dir, templates=21, affinity=DEFAULT_AFFINITY, train_per_class=100, seed=42):
+def train(data_dir, output_dir, templates=21, affinity=DEFAULT_AFFINITY, train_per_class=500, seed=42):
     if templates < 1 or train_per_class < 1 or not 0 <= affinity <= 1:
         raise ValueError("Counts must be positive and affinity must be between 0 and 1")
     training = folders(data_dir, "train")
@@ -57,17 +55,22 @@ def train(data_dir, output_dir, templates=21, affinity=DEFAULT_AFFINITY, train_p
     model = ImmuneAlgorithm(28, 28, affinity, templates)
     model.reload_limphocites(training)
     metadata = {
-        "algorithm": "original all-cells training with corrected bidirectional mutation",
-        "mutation_version": 2,
+        "algorithm": "closest same-class template with bidirectional mutation",
+        "update_selection": "closest",
+        "training_tie_breaking": "seeded random among equally similar same-class templates",
+        "mutation_version": 3,
+        "mutation_rounding": "stochastic; expected fraction 0.1",
+        "voting": "scaled exponential; exact-match counts; reject tied maxima",
         "templates_per_digit": templates, "reaction_affinity": affinity,
         "pixel_threshold": 200, "mutation_power": 0.1, "seed": seed,
         "training_per_class": train_per_class, "training_examples": 10 * train_per_class,
         "reference_files": {k: v[:templates] for k, v in files.items()},
         "training_files": {k: v[:train_per_class] for k, v in files.items()},
-        "note": "Original os.listdir ordering and all-cells mutation loop are preserved. No tuning or checkpoint selection.",
+        "note": "Original os.listdir ordering is preserved. One closest same-class template is updated per image. No tuning or checkpoint selection.",
     }
     output_dir = Path(output_dir)
-    save_model(model, output_dir / "initial.pkl", metadata)
+    save_model(model, output_dir / "initial.pkl", {
+        **metadata, "training_per_class": 0, "training_examples": 0, "training_files": {}})
     print(f"Training: {10 * train_per_class} images, {10 * templates} cells, one pass", flush=True)
     start = time.perf_counter()
     model.training(training, train_per_class)
@@ -108,7 +111,7 @@ def evaluate(data_dir, model_path, report_dir, test_per_class=None, seed=42, aff
         per_digit[digit] = {"correct": correct, "total": len(names), "accuracy": correct / len(names)}
         print(f"Digit {digit}: {correct}/{len(names)}", flush=True)
     results = {"training_algorithm": metadata["algorithm"], "training": metadata,
-               "prediction_rule": "affinity-weighted votes; unrecognized when all votes are zero",
+               "prediction_rule": "scaled exponential votes; exact-match counts; unrecognized on zero votes or tied maxima",
                "saved_model_affinity": saved_affinity, "evaluation_affinity": affinity,
                "evaluated_at_utc": datetime.now(timezone.utc).isoformat(),
                "evaluation_seconds": time.perf_counter() - start,
@@ -130,11 +133,11 @@ def evaluate(data_dir, model_path, report_dir, test_per_class=None, seed=42, aff
              f"Training examples: {metadata['training_examples']}; templates per digit: {model.network_power}; "
              f"reaction threshold: {model.main_affinity_to_react}; pixel threshold: 200.", "",
              f"Saved training algorithm: {metadata['algorithm']}. "
-             "New training uses corrected bidirectional mutation; loading an older model does not retrain it. "
+             "New training mutates one closest same-class template; loading an older model does not retrain it. "
              "Inference uses the original affinity and weighted votes, with an explicit unrecognized output.", "",
              "MNIST source: [CVDF mirror](https://github.com/cvdfoundation/mnist). "
              "Reference and training images use the official training set; evaluation uses the official test set. "
-             "Images are exported without normalization or pixel changes. No validation tuning is performed.", "",
+             "Images are exported without normalization or pixel changes. This evaluation command does not tune parameters.", "",
              f"Unrecognized inputs: {results['unrecognized']}. Coverage: {results['coverage']:.2%}. "
              "Unrecognized inputs count as incorrect in overall accuracy. "
              "There is no default digit or nearest-template fallback.", "",

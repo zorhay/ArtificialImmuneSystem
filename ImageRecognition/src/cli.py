@@ -8,16 +8,16 @@ from .dataset import DEFAULT_DATA_DIR, ROOT, download_mnist, prepare_mnist
 from .experiment import evaluate, folders, load_model, train
 from .immune_algorithm import DEFAULT_AFFINITY, UNRECOGNIZED, ImmuneAlgorithm
 
-DEFAULT_OUTPUT = ROOT / "artifacts" / "original"
-DEFAULT_REPORT = ROOT / "reports" / "original"
+DEFAULT_OUTPUT = ROOT / "artifacts" / "closest-template"
+DEFAULT_REPORT = ROOT / "reports" / "closest-template"
 
 
 def training_options(parser):
     parser.add_argument("--data-dir", type=Path, default=DEFAULT_DATA_DIR)
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--templates", type=int, default=21, help="Original recognition.py default: 21 per digit")
-    parser.add_argument("--affinity", type=float, default=DEFAULT_AFFINITY, help="Reaction threshold (default: 0.4)")
-    parser.add_argument("--train-per-class", type=int, default=100, help="Original training() set_size argument")
+    parser.add_argument("--affinity", type=float, default=DEFAULT_AFFINITY, help="Reaction threshold (default: 0.3)")
+    parser.add_argument("--train-per-class", type=int, default=500, help="Training images per digit (default: 500)")
     parser.add_argument("--seed", type=int, default=42)
 
 
@@ -27,9 +27,9 @@ def main(argv=None):
     for name in ("download", "prepare"):
         command = commands.add_parser(name)
         command.add_argument("--data-dir", type=Path, default=DEFAULT_DATA_DIR)
-    training = commands.add_parser("train", help="Call the original training() method once")
+    training = commands.add_parser("train", help="Train the closest same-class template for each image")
     training_options(training)
-    run = commands.add_parser("run", help="Download, export images, train, and evaluate the original algorithm")
+    run = commands.add_parser("run", help="Download, export images, train, and evaluate")
     training_options(run)
     run.add_argument("--test-per-class", type=int, default=None, help="Omit to evaluate the full test set")
     run.add_argument("--report-dir", type=Path, default=DEFAULT_REPORT)
@@ -40,13 +40,13 @@ def main(argv=None):
     evaluation.add_argument("--test-per-class", type=int, default=None)
     evaluation.add_argument("--seed", type=int, default=42)
     evaluation.add_argument("--affinity", type=float, default=DEFAULT_AFFINITY,
-                            help="Evaluation threshold; overrides saved model setting (default: 0.4)")
+                            help="Evaluation threshold; overrides saved model setting (default: 0.3)")
     prediction = commands.add_parser("predict")
     prediction.add_argument("image", type=Path)
     prediction.add_argument("--model", type=Path, help="Load a trained model; otherwise use original reference-image initialization")
     prediction.add_argument("--data-dir", type=Path, default=DEFAULT_DATA_DIR)
     prediction.add_argument("--affinity", type=float, default=DEFAULT_AFFINITY,
-                            help="Prediction threshold; overrides saved model setting (default: 0.4)")
+                            help="Prediction threshold; overrides saved model setting (default: 0.3)")
     args = parser.parse_args(argv)
     try:
         if hasattr(args, "affinity") and not 0 <= args.affinity <= 1:
