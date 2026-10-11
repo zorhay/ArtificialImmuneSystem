@@ -1,0 +1,97 @@
+{
+  "reference_images_verified_against_training_idx": 210,
+  "initial_model_actual_training_updates": 0,
+  "saved_model_actual_training_examples": 20,
+  "per_digit_template_state": [
+    {
+      "digit": 0,
+      "templates": 21,
+      "initial_white_pixels_mean": 121.57142857142857,
+      "trained_white_pixels_mean": 131.38095238095238,
+      "pixels_added": 206,
+      "pixels_removed": 0,
+      "templates_with_overlapping_white_black_pixels": 21
+    },
+    {
+      "digit": 1,
+      "templates": 21,
+      "initial_white_pixels_mean": 55.19047619047619,
+      "trained_white_pixels_mean": 58.61904761904762,
+      "pixels_added": 72,
+      "pixels_removed": 0,
+      "templates_with_overlapping_white_black_pixels": 21
+    },
+    {
+      "digit": 2,
+      "templates": 21,
+      "initial_white_pixels_mean": 85.66666666666667,
+      "trained_white_pixels_mean": 95.28571428571429,
+      "pixels_added": 202,
+      "pixels_removed": 0,
+      "templates_with_overlapping_white_black_pixels": 21
+    },
+    {
+      "digit": 3,
+      "templates": 21,
+      "initial_white_pixels_mean": 96.9047619047619,
+      "trained_white_pixels_mean": 102.66666666666667,
+      "pixels_added": 121,
+      "pixels_removed": 0,
+      "templates_with_overlapping_white_black_pixels": 21
+    },
+    {
+      "digit": 4,
+      "templates": 21,
+      "initial_white_pixels_mean": 75.33333333333333,
+      "trained_white_pixels_mean": 82.28571428571429,
+      "pixels_added": 146,
+      "pixels_removed": 0,
+      "templates_with_overlapping_white_black_pixels": 21
+    },
+    {
+      "digit": 5,
+      "templates": 21,
+      "initial_white_pixels_mean": 60.095238095238095,
+      "trained_white_pixels_mean": 69.04761904761905,
+      "pixels_added": 188,
+      "pixels_removed": 0,
+      "templates_with_overlapping_white_black_pixels": 21
+    },
+    {
+      "digit": 6,
+      "templates": 21,
+      "initial_white_pixels_mean": 85.61904761904762,
+      "trained_white_pixels_mean": 93.85714285714286,
+      "pixels_added": 173,
+      "pixels_removed": 0,
+      "templates_with_overlapping_white_black_pixels": 21
+    },
+    {
+      "digit": 7,
+      "templates": 21,
+      "initial_white_pixels_mean": 66.61904761904762,
+      "trained_white_pixels_mean": 71.9047619047619,
+      "pixels_added": 111,
+      "pixels_removed": 0,
+      "templates_with_overlapping_white_black_pixels": 21
+    },
+    {
+      "digit": 8,
+      "templates": 21,
+      "initial_white_pixels_mean": 101.38095238095238,
+      "trained_white_pixels_mean": 111.47619047619048,
+      "pixels_added": 212,
+      "pixels_removed": 0,
+      "templates_with_overlapping_white_black_pixels": 21
+    },
+    {
+      "digit": 9,
+      "templates": 21,
+      "initial_white_pixels_mean": 76.28571428571429,
+      "trained_white_pixels_mean": 87.85714285714286,
+      "pixels_added": 243,
+      "pixels_removed": 0,
+      "templates_with_overlapping_white_black_pixels": 21
+    }
+  ]
+}

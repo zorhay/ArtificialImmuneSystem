@@ -13,6 +13,9 @@ _data_root = Path(os.environ.get('AIS_DATA_DIR', Path(__file__).resolve().parent
 image_path = str(_data_root / 'images' / 'train') + os.sep
 limpho_path = image_path
 
+DEFAULT_AFFINITY = 0.4
+UNRECOGNIZED = 'unrecognized'
+
 training_set = {
                 '0': image_path + '0/',
                 '1': image_path + '1/',
@@ -132,6 +135,8 @@ class ImmuneAlgorithm(object):
                 if affinity >= self.main_affinity_to_react:
                     increment = self.get_increment_value(affinity)
                     self.counters[key] += increment
+        if not any(self.counters.values()):
+            return UNRECOGNIZED
         return max(self.counters, key=self.counters.get)
 
     def recognition_image(self, path):
@@ -154,9 +159,10 @@ class ImmuneAlgorithm(object):
         return results
 
     def test_recognition_symbol(self, symbol_dir, antigen_count, value):
+        """Return counts for digits 0–9, followed by unrecognized at index 10."""
         antigens = []
         results = []
-        for i in range(10):
+        for i in range(11):
             results.append(0)
         truth_count = 0
         for filename in random.sample(os.listdir(symbol_dir), antigen_count):
@@ -165,7 +171,8 @@ class ImmuneAlgorithm(object):
             antigens.append(antigen)
         for antigen in antigens:
 
-            results[int(self.recognition_antigen(antigen))] += 1
+            prediction = self.recognition_antigen(antigen)
+            results[10 if prediction == UNRECOGNIZED else int(prediction)] += 1
             # if self.recognition_antigen(antigen) == antigen.value:
             #     truth_count += 1
         # return truth_count/len(antigens)

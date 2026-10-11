@@ -1,0 +1,45 @@
+{
+  "timestamp": "2026-10-12T01:10:21.617945+04:00",
+  "timezone": "Asia/Yerevan",
+  "commit": "d13bbca72dbda59aa73360d191227dcb9304bfab",
+  "python": "3.13.5",
+  "numpy": "2.5.4",
+  "pillow": "12.3.0",
+  "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+  "test_images_verified_against_idx": 10000,
+  "test_class_counts": [
+    980,
+    1135,
+    1032,
+    1010,
+    982,
+    892,
+    958,
+    1028,
+    974,
+    1009
+  ],
+  "test_images_blank_at_threshold_200": 0,
+  "models": {
+    "artifacts/original/model.pkl": {
+      "sha256": "97f394e72f02039c59783372d2351bf3da64fb5edfe93cb670078015e7ba7567",
+      "bytes": 1024773
+    },
+    "artifacts/original/initial.pkl": {
+      "sha256": "27f444cfc956e7b0fcd469e7f6e2b2d02256283767a7c469a61fdd5ef5c8f877",
+      "bytes": 1006049
+    }
+  },
+  "dataset_archive_md5": {
+    "train-images-idx3-ubyte.gz": "f68b3c2dcbeaaa9fbdd348bbdeb94873",
+    "train-labels-idx1-ubyte.gz": "d53e105ee54ea40749a09fcbcd1e9432",
+    "t10k-images-idx3-ubyte.gz": "9fb629c4189551a2d022fa330f9573f3",
+    "t10k-labels-idx1-ubyte.gz": "ec29112dd5afa0611ce80d1b7f02629c"
+  },
+  "verification_seconds": 1.789720791974105,
+  "commands": [
+    ".venv/bin/python -m ImageRecognition evaluate --model artifacts/original/model.pkl --report-dir reports/evaluation-current/trained",
+    ".venv/bin/python -m ImageRecognition evaluate --model artifacts/original/initial.pkl --report-dir reports/evaluation-current/initial"
+  ],
+  "evaluation_note": "Two independent processes ran concurrently; elapsed timings are not isolated performance benchmarks."
+}

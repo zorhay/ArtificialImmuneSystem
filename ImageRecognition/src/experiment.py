@@ -1,4 +1,4 @@
-"""Run orchestration around the original, unmodified classifier methods."""
+"""Run orchestration for template training and evaluation, including unrecognized inputs."""
 
 import csv
 from datetime import datetime, timezone
@@ -9,7 +9,7 @@ import pickle
 import random
 import time
 
-from .immune_algorithm import ImmuneAlgorithm
+from .immune_algorithm import DEFAULT_AFFINITY, UNRECOGNIZED, ImmuneAlgorithm
 from .limphocit import Limphocit_B
 
 
@@ -46,7 +46,7 @@ def load_model(path):
     return saved["model"], saved["metadata"]
 
 
-def train(data_dir, output_dir, templates=21, affinity=0.8, train_per_class=100, seed=42):
+def train(data_dir, output_dir, templates=21, affinity=DEFAULT_AFFINITY, train_per_class=100, seed=42):
     if templates < 1 or train_per_class < 1 or not 0 <= affinity <= 1:
         raise ValueError("Counts must be positive and affinity must be between 0 and 1")
     training = folders(data_dir, "train")
@@ -57,7 +57,8 @@ def train(data_dir, output_dir, templates=21, affinity=0.8, train_per_class=100,
     model = ImmuneAlgorithm(28, 28, affinity, templates)
     model.reload_limphocites(training)
     metadata = {
-        "algorithm": "original repository implementation",
+        "algorithm": "original all-cells training with corrected bidirectional mutation",
+        "mutation_version": 2,
         "templates_per_digit": templates, "reaction_affinity": affinity,
         "pixel_threshold": 200, "mutation_power": 0.1, "seed": seed,
         "training_per_class": train_per_class, "training_examples": 10 * train_per_class,
@@ -67,7 +68,7 @@ def train(data_dir, output_dir, templates=21, affinity=0.8, train_per_class=100,
     }
     output_dir = Path(output_dir)
     save_model(model, output_dir / "initial.pkl", metadata)
-    print(f"Original training: {10 * train_per_class} images, {10 * templates} cells, one pass", flush=True)
+    print(f"Training: {10 * train_per_class} images, {10 * templates} cells, one pass", flush=True)
     start = time.perf_counter()
     model.training(training, train_per_class)
     metadata["training_seconds"] = time.perf_counter() - start
@@ -78,10 +79,14 @@ def train(data_dir, output_dir, templates=21, affinity=0.8, train_per_class=100,
     return model_path
 
 
-def evaluate(data_dir, model_path, report_dir, test_per_class=None, seed=42):
+def evaluate(data_dir, model_path, report_dir, test_per_class=None, seed=42, affinity=DEFAULT_AFFINITY):
     if test_per_class is not None and test_per_class < 1:
         raise ValueError("test_per_class must be positive")
+    if not 0 <= affinity <= 1:
+        raise ValueError("Affinity must be between 0 and 1")
     model, metadata = load_model(model_path)
+    saved_affinity = model.main_affinity_to_react
+    model.set_affinity_to_react(affinity)
     testing = folders(data_dir, "test")
     report_dir = Path(report_dir)
     report_dir.mkdir(parents=True, exist_ok=True)
@@ -102,30 +107,38 @@ def evaluate(data_dir, model_path, report_dir, test_per_class=None, seed=42):
                          "all_scores_zero": all(score == 0 for score in model.get_counters().values())})
         per_digit[digit] = {"correct": correct, "total": len(names), "accuracy": correct / len(names)}
         print(f"Digit {digit}: {correct}/{len(names)}", flush=True)
-    results = {"algorithm": metadata["algorithm"], "training": metadata,
+    results = {"training_algorithm": metadata["algorithm"], "training": metadata,
+               "prediction_rule": "affinity-weighted votes; unrecognized when all votes are zero",
+               "saved_model_affinity": saved_affinity, "evaluation_affinity": affinity,
                "evaluated_at_utc": datetime.now(timezone.utc).isoformat(),
                "evaluation_seconds": time.perf_counter() - start,
                "test_examples": len(rows), "correct": sum(r["correct"] for r in per_digit.values()),
                "test_per_class": test_per_class, "evaluation_seed": seed, "per_digit": per_digit,
                "all_scores_zero": sum(row["all_scores_zero"] for row in rows)}
     results["accuracy"] = results["correct"] / results["test_examples"]
+    results["unrecognized"] = sum(row["prediction"] == UNRECOGNIZED for row in rows)
+    results["recognized"] = len(rows) - results["unrecognized"]
+    results["coverage"] = results["recognized"] / len(rows)
+    results["recognized_accuracy"] = results["correct"] / results["recognized"] if results["recognized"] else None
     with (report_dir / "predictions.csv").open("w", newline="") as stream:
         writer = csv.DictWriter(stream, fieldnames=rows[0].keys(), lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
     (report_dir / "metrics.json").write_text(json.dumps(results, indent=2) + "\n")
-    lines = ["# Original-algorithm run report", "",
+    lines = ["# Template classifier run report", "",
              f"Correct: {results['correct']} / {len(rows)} ({results['accuracy']:.2%}).", "",
              f"Training examples: {metadata['training_examples']}; templates per digit: {model.network_power}; "
              f"reaction threshold: {model.main_affinity_to_react}; pixel threshold: 200.", "",
-             "This runs the original training, mutation, affinity, and voting methods. "
-             "It includes the original mutation bug, zero-score ties, and infinite exact-match scores. "
-             "Only imports, data paths, and Python/NumPy compatibility were adjusted in the core files.", "",
+             f"Saved training algorithm: {metadata['algorithm']}. "
+             "New training uses corrected bidirectional mutation; loading an older model does not retrain it. "
+             "Inference uses the original affinity and weighted votes, with an explicit unrecognized output.", "",
              "MNIST source: [CVDF mirror](https://github.com/cvdfoundation/mnist). "
              "Reference and training images use the official training set; evaluation uses the official test set. "
              "Images are exported without normalization or pixel changes. No validation tuning is performed.", "",
-             f"All-zero score cases: {results['all_scores_zero']}. The original classifier resolves these "
-             "by dictionary order; no nearest-template fallback has been added.", "",
+             f"Unrecognized inputs: {results['unrecognized']}. Coverage: {results['coverage']:.2%}. "
+             "Unrecognized inputs count as incorrect in overall accuracy. "
+             "There is no default digit or nearest-template fallback.", "",
+             f"Saved model threshold: {saved_affinity}; evaluation threshold: {affinity}.", "",
              "This is a sampled execution check, not a full-test benchmark." if test_per_class is not None
              else "All 10,000 official test images were evaluated.", "",
              "| Digit | Correct | Evaluated | Accuracy |", "|---|---:|---:|---:|"]

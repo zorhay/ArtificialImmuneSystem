@@ -1,0 +1,242 @@
+{
+  "stage": "trained",
+  "actual_training_examples": 20,
+  "test_examples": 10000,
+  "correct": 1147,
+  "errors": 8853,
+  "accuracy": 0.1147,
+  "macro_precision": 0.6099664395403235,
+  "balanced_accuracy": 0.11487996344995924,
+  "macro_f1": 0.04459473484091615,
+  "weighted_f1": 0.04742955116692787,
+  "no_reaction_count": 9815,
+  "no_reaction_correct": 962,
+  "reacting_count": 185,
+  "reacting_correct": 185,
+  "reacting_accuracy": 1.0,
+  "evaluation_seconds": 309.4054057080066,
+  "per_digit": [
+    {
+      "digit": 0,
+      "support": 980,
+      "predicted": 9833,
+      "correct": 980,
+      "precision": 0.099664395403234,
+      "recall": 1.0,
+      "f1": 0.18126329418292797,
+      "no_reaction": 962
+    },
+    {
+      "digit": 1,
+      "support": 1135,
+      "predicted": 155,
+      "correct": 155,
+      "precision": 1.0,
+      "recall": 0.13656387665198239,
+      "f1": 0.24031007751937986,
+      "no_reaction": 980
+    },
+    {
+      "digit": 2,
+      "support": 1032,
+      "predicted": 0,
+      "correct": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "no_reaction": 1032
+    },
+    {
+      "digit": 3,
+      "support": 1010,
+      "predicted": 0,
+      "correct": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "no_reaction": 1010
+    },
+    {
+      "digit": 4,
+      "support": 982,
+      "predicted": 1,
+      "correct": 1,
+      "precision": 1.0,
+      "recall": 0.0010183299389002036,
+      "f1": 0.002034587995930824,
+      "no_reaction": 981
+    },
+    {
+      "digit": 5,
+      "support": 892,
+      "predicted": 0,
+      "correct": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "no_reaction": 892
+    },
+    {
+      "digit": 6,
+      "support": 958,
+      "predicted": 6,
+      "correct": 6,
+      "precision": 1.0,
+      "recall": 0.006263048016701462,
+      "f1": 0.012448132780082988,
+      "no_reaction": 952
+    },
+    {
+      "digit": 7,
+      "support": 1028,
+      "predicted": 2,
+      "correct": 2,
+      "precision": 1.0,
+      "recall": 0.0019455252918287938,
+      "f1": 0.0038834951456310682,
+      "no_reaction": 1026
+    },
+    {
+      "digit": 8,
+      "support": 974,
+      "predicted": 1,
+      "correct": 1,
+      "precision": 1.0,
+      "recall": 0.001026694045174538,
+      "f1": 0.0020512820512820513,
+      "no_reaction": 973
+    },
+    {
+      "digit": 9,
+      "support": 1009,
+      "predicted": 2,
+      "correct": 2,
+      "precision": 1.0,
+      "recall": 0.0019821605550049554,
+      "f1": 0.003956478733926805,
+      "no_reaction": 1007
+    }
+  ],
+  "confusion_matrix": [
+    [
+      980,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      980,
+      155,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      1032,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      1010,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      981,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      892,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      952,
+      0,
+      0,
+      0,
+      0,
+      0,
+      6,
+      0,
+      0,
+      0
+    ],
+    [
+      1026,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      2,
+      0,
+      0
+    ],
+    [
+      973,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0
+    ],
+    [
+      1007,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      2
+    ]
+  ]
+}

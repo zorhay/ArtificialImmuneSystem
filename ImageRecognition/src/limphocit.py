@@ -31,6 +31,8 @@ class Limphocit_B():
         self.black_pixels = []
 
     def affinity(self, antigen):
+        if not self.white_pixels or not antigen.white_pixels:
+            return 0.0
         p = 0
         for i in antigen.white_pixels:
             if i in self.white_pixels:
@@ -106,11 +108,13 @@ class Limphocit_B():
         pixel_count = int(len(div_antigen_pixels)*mutation_power)
         input_pixels = set(random.sample(list(div_antigen_pixels), pixel_count))
         self.white_pixels = list(set(self.white_pixels) | input_pixels)
+        self.black_pixels = list(set(self.black_pixels) - input_pixels)
 
         div_limphocit_pixels = set([pixel for pixel in self.white_pixels if pixel not in antigen.white_pixels])
         pixel_count = int(len(div_limphocit_pixels) * mutation_power)
         output_pixels = set(random.sample(list(div_limphocit_pixels), pixel_count))
         self.black_pixels = list(set(self.black_pixels) | output_pixels)
+        self.white_pixels = list(set(self.white_pixels) - output_pixels)
 
     def filter(self):
         img = self.convert_to_image()

@@ -1,0 +1,537 @@
+{
+  "current": {
+    "stage": "trained",
+    "actual_training_examples": 20,
+    "test_examples": 10000,
+    "correct": 1147,
+    "errors": 8853,
+    "accuracy": 0.1147,
+    "macro_precision": 0.6099664395403235,
+    "balanced_accuracy": 0.11487996344995924,
+    "macro_f1": 0.04459473484091615,
+    "weighted_f1": 0.04742955116692787,
+    "no_reaction_count": 9815,
+    "no_reaction_correct": 962,
+    "reacting_count": 185,
+    "reacting_correct": 185,
+    "reacting_accuracy": 1.0,
+    "evaluation_seconds": 309.4054057080066,
+    "per_digit": [
+      {
+        "digit": 0,
+        "support": 980,
+        "predicted": 9833,
+        "correct": 980,
+        "precision": 0.099664395403234,
+        "recall": 1.0,
+        "f1": 0.18126329418292797,
+        "no_reaction": 962
+      },
+      {
+        "digit": 1,
+        "support": 1135,
+        "predicted": 155,
+        "correct": 155,
+        "precision": 1.0,
+        "recall": 0.13656387665198239,
+        "f1": 0.24031007751937986,
+        "no_reaction": 980
+      },
+      {
+        "digit": 2,
+        "support": 1032,
+        "predicted": 0,
+        "correct": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "no_reaction": 1032
+      },
+      {
+        "digit": 3,
+        "support": 1010,
+        "predicted": 0,
+        "correct": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "no_reaction": 1010
+      },
+      {
+        "digit": 4,
+        "support": 982,
+        "predicted": 1,
+        "correct": 1,
+        "precision": 1.0,
+        "recall": 0.0010183299389002036,
+        "f1": 0.002034587995930824,
+        "no_reaction": 981
+      },
+      {
+        "digit": 5,
+        "support": 892,
+        "predicted": 0,
+        "correct": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "no_reaction": 892
+      },
+      {
+        "digit": 6,
+        "support": 958,
+        "predicted": 6,
+        "correct": 6,
+        "precision": 1.0,
+        "recall": 0.006263048016701462,
+        "f1": 0.012448132780082988,
+        "no_reaction": 952
+      },
+      {
+        "digit": 7,
+        "support": 1028,
+        "predicted": 2,
+        "correct": 2,
+        "precision": 1.0,
+        "recall": 0.0019455252918287938,
+        "f1": 0.0038834951456310682,
+        "no_reaction": 1026
+      },
+      {
+        "digit": 8,
+        "support": 974,
+        "predicted": 1,
+        "correct": 1,
+        "precision": 1.0,
+        "recall": 0.001026694045174538,
+        "f1": 0.0020512820512820513,
+        "no_reaction": 973
+      },
+      {
+        "digit": 9,
+        "support": 1009,
+        "predicted": 2,
+        "correct": 2,
+        "precision": 1.0,
+        "recall": 0.0019821605550049554,
+        "f1": 0.003956478733926805,
+        "no_reaction": 1007
+      }
+    ],
+    "confusion_matrix": [
+      [
+        980,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        980,
+        155,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1032,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1010,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        981,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        892,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        952,
+        0,
+        0,
+        0,
+        0,
+        0,
+        6,
+        0,
+        0,
+        0
+      ],
+      [
+        1026,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        0,
+        0
+      ],
+      [
+        973,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        1007,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2
+      ]
+    ]
+  },
+  "initial": {
+    "stage": "initial",
+    "actual_training_examples": 0,
+    "test_examples": 10000,
+    "correct": 1252,
+    "errors": 8748,
+    "accuracy": 0.1252,
+    "macro_precision": 0.6100740131578948,
+    "balanced_accuracy": 0.1242486504850964,
+    "macro_f1": 0.058818263536636495,
+    "weighted_f1": 0.06328180204122852,
+    "no_reaction_count": 9711,
+    "no_reaction_correct": 963,
+    "reacting_count": 289,
+    "reacting_correct": 289,
+    "reacting_accuracy": 1.0,
+    "evaluation_seconds": 284.1584686660208,
+    "per_digit": [
+      {
+        "digit": 0,
+        "support": 980,
+        "predicted": 9728,
+        "correct": 980,
+        "precision": 0.10074013157894737,
+        "recall": 1.0,
+        "f1": 0.18304071722076953,
+        "no_reaction": 963
+      },
+      {
+        "digit": 1,
+        "support": 1135,
+        "predicted": 250,
+        "correct": 250,
+        "precision": 1.0,
+        "recall": 0.22026431718061673,
+        "f1": 0.36101083032490977,
+        "no_reaction": 885
+      },
+      {
+        "digit": 2,
+        "support": 1032,
+        "predicted": 0,
+        "correct": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "no_reaction": 1032
+      },
+      {
+        "digit": 3,
+        "support": 1010,
+        "predicted": 0,
+        "correct": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "no_reaction": 1010
+      },
+      {
+        "digit": 4,
+        "support": 982,
+        "predicted": 2,
+        "correct": 2,
+        "precision": 1.0,
+        "recall": 0.002036659877800407,
+        "f1": 0.004065040650406504,
+        "no_reaction": 980
+      },
+      {
+        "digit": 5,
+        "support": 892,
+        "predicted": 0,
+        "correct": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "no_reaction": 892
+      },
+      {
+        "digit": 6,
+        "support": 958,
+        "predicted": 9,
+        "correct": 9,
+        "precision": 1.0,
+        "recall": 0.009394572025052192,
+        "f1": 0.01861427094105481,
+        "no_reaction": 949
+      },
+      {
+        "digit": 7,
+        "support": 1028,
+        "predicted": 8,
+        "correct": 8,
+        "precision": 1.0,
+        "recall": 0.007782101167315175,
+        "f1": 0.015444015444015444,
+        "no_reaction": 1020
+      },
+      {
+        "digit": 8,
+        "support": 974,
+        "predicted": 1,
+        "correct": 1,
+        "precision": 1.0,
+        "recall": 0.001026694045174538,
+        "f1": 0.0020512820512820513,
+        "no_reaction": 973
+      },
+      {
+        "digit": 9,
+        "support": 1009,
+        "predicted": 2,
+        "correct": 2,
+        "precision": 1.0,
+        "recall": 0.0019821605550049554,
+        "f1": 0.003956478733926805,
+        "no_reaction": 1007
+      }
+    ],
+    "confusion_matrix": [
+      [
+        980,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        885,
+        250,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1032,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1010,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        980,
+        0,
+        0,
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        892,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        949,
+        0,
+        0,
+        0,
+        0,
+        0,
+        9,
+        0,
+        0,
+        0
+      ],
+      [
+        1020,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        8,
+        0,
+        0
+      ],
+      [
+        973,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        1007,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2
+      ]
+    ]
+  },
+  "comparison": {
+    "accuracy_delta_percentage_points": -1.050000000000001,
+    "errors_corrected": 13,
+    "correct_predictions_lost": 118,
+    "unchanged_predictions": 9869
+  },
+  "provenance": {
+    "timestamp": "2026-10-12T01:10:21.617945+04:00",
+    "timezone": "Asia/Yerevan",
+    "commit": "d13bbca72dbda59aa73360d191227dcb9304bfab",
+    "python": "3.13.5",
+    "numpy": "2.5.4",
+    "pillow": "12.3.0",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "test_images_verified_against_idx": 10000,
+    "test_class_counts": [
+      980,
+      1135,
+      1032,
+      1010,
+      982,
+      892,
+      958,
+      1028,
+      974,
+      1009
+    ],
+    "test_images_blank_at_threshold_200": 0,
+    "models": {
+      "artifacts/original/model.pkl": {
+        "sha256": "97f394e72f02039c59783372d2351bf3da64fb5edfe93cb670078015e7ba7567",
+        "bytes": 1024773
+      },
+      "artifacts/original/initial.pkl": {
+        "sha256": "27f444cfc956e7b0fcd469e7f6e2b2d02256283767a7c469a61fdd5ef5c8f877",
+        "bytes": 1006049
+      }
+    },
+    "dataset_archive_md5": {
+      "train-images-idx3-ubyte.gz": "f68b3c2dcbeaaa9fbdd348bbdeb94873",
+      "train-labels-idx1-ubyte.gz": "d53e105ee54ea40749a09fcbcd1e9432",
+      "t10k-images-idx3-ubyte.gz": "9fb629c4189551a2d022fa330f9573f3",
+      "t10k-labels-idx1-ubyte.gz": "ec29112dd5afa0611ce80d1b7f02629c"
+    },
+    "verification_seconds": 1.789720791974105,
+    "commands": [
+      ".venv/bin/python -m ImageRecognition evaluate --model artifacts/original/model.pkl --report-dir reports/evaluation-current/trained",
+      ".venv/bin/python -m ImageRecognition evaluate --model artifacts/original/initial.pkl --report-dir reports/evaluation-current/initial"
+    ],
+    "evaluation_note": "Two independent processes ran concurrently; elapsed timings are not isolated performance benchmarks."
+  }
+}

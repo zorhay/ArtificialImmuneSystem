@@ -13,7 +13,7 @@ import pytest
 
 from ImageRecognition.src import dataset
 from ImageRecognition.src.dataset import read_idx
-from ImageRecognition.src.experiment import evaluate, save_model, train
+from ImageRecognition.src.experiment import evaluate, load_model, save_model, train
 from ImageRecognition.src.immune_algorithm import ImmuneAlgorithm
 from ImageRecognition.src.limphocit import Limphocit_B
 
@@ -55,7 +55,16 @@ def test_cli_predict_and_legacy_entrypoint_reload_original_state(tmp_path):
     for entrypoint in (["-m", "ImageRecognition", "predict"], [str(root / "ImageRecognition/src/recognition.py")]):
         completed = subprocess.run([sys.executable, *entrypoint, str(image_path), "--model", str(model_path)],
                                    check=True, capture_output=True, text=True, cwd=root)
-        assert json.loads(completed.stdout)["prediction"] == 1
+        result = json.loads(completed.stdout)
+        assert result["prediction"] == 1
+        assert result["reaction_affinity"] == 0.4
+    # The override is for inference; the serialized model itself stays unchanged.
+    restored, _ = load_model(model_path)
+    assert restored.main_affinity_to_react == 0.8
+    Image.fromarray(np.zeros((28, 28), dtype=np.uint8)).save(image_path)
+    blank = subprocess.run([sys.executable, "-m", "ImageRecognition", "predict", str(image_path),
+                            "--model", str(model_path)], check=True, capture_output=True, text=True, cwd=root)
+    assert json.loads(blank.stdout)["prediction"] == "unrecognized"
 
 
 def test_original_train_save_load_evaluate_pipeline(tmp_path):
@@ -69,7 +78,16 @@ def test_original_train_save_load_evaluate_pipeline(tmp_path):
     model_path = train(tmp_path, tmp_path / "output", templates=1, train_per_class=1)
     results = evaluate(tmp_path, model_path, tmp_path / "report", test_per_class=1)
     assert results["correct"] == results["test_examples"] == 10
+    assert results["evaluation_affinity"] == results["saved_model_affinity"] == 0.4
+    assert results["unrecognized"] == 0
     assert (tmp_path / "report" / "predictions.csv").exists()
+    # Rejected images must remain in the accuracy denominator and in the CSV.
+    for path in (tmp_path / "images" / "test").rglob("*.png"):
+        Image.fromarray(np.zeros((28, 28), dtype=np.uint8)).save(path)
+    rejected = evaluate(tmp_path, model_path, tmp_path / "rejected", test_per_class=1)
+    assert rejected["unrecognized"] == rejected["test_examples"] == 10
+    assert rejected["accuracy"] == rejected["coverage"] == 0
+    assert rejected["recognized_accuracy"] is None
 
 
 def test_cli_missing_model_reports_error(tmp_path):
